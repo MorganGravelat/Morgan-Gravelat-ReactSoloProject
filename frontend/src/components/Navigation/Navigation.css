@@ -1,0 +1,17 @@
+.navbar-home-button {
+    margin-right: 20px;
+    background: linear-gradient(
+      0deg,
+      rgb(153, 74, 0) 0%,
+      rgb(194, 137, 30) 100%
+    );
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+      rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    width: 10%;
+}
+button .modal-button-signup {
+    width: 20%;
+}

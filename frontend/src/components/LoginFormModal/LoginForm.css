@@ -1,0 +1,36 @@
+form {
+  text-align:center;
+  align:center;
+}
+input[type=text], input[type=password] {
+  width: 15%;
+  padding: 12px 20px;
+  margin: 8px;
+  margin-left: 10px;
+  display: inline-block;
+  border: 1px solid rgb(155, 141, 141);
+  box-sizing: border-box;
+}
+input.input-form-login-usernameemail[type=text],
+input.input-form-login-password[type=password] {
+    margin-left: 10px;
+}
+
+button {
+  background: linear-gradient(0deg, rgba(82,0,0,1) 0%, rgba(212,0,0,1) 100%);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 10%;
+}
+.input-loginfields-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.password-input-field {
+    margin-left: 3em;
+}
