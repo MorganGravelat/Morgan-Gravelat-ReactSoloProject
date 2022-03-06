@@ -11,7 +11,7 @@ input[type=text], input[type=password] {
   border: 1px solid rgb(155, 141, 141);
   box-sizing: border-box;
 }
-input.input-form-login-usernameemail[type=text]
+input.input-form-login-usernameemail[type=text],
 input.input-form-login-password[type=password] {
     margin-left: 10px;
 }
