@@ -12,6 +12,21 @@
     margin: 8px 0;
     width: 10%;
 }
-button .modal-button-signup {
+button {
     width: 20%;
+}
+
+.nav-signup-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+}
+
+.profile-dropdown-logout-button {
+    width: 100%;
+}
+
+.user-dropdown-button {
+    width: 10%;
 }

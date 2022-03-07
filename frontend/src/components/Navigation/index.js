@@ -6,7 +6,8 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
-
+//<NavLink exact to="/" className="navbar-home-button" id="home-button-navbar">Home</NavLink>
+//above removed from above {isLoaded && sessionLinks}
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
@@ -25,9 +26,7 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <div>
-        <NavLink exact to="/" className="navbar-home-button" id="home-button-navbar">Home</NavLink>
-        <br />
+    <div className="nav-signup-login-container">
         {isLoaded && sessionLinks}
     </div>
   );
