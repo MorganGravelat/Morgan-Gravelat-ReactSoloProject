@@ -27,6 +27,7 @@ function Navigation({ isLoaded }){
 
   return (
     <div className="nav-signup-login-container">
+        <NavLink exact to="/" className="navbar-home-button" id="home-button-navbar">Home</NavLink>
         {isLoaded && sessionLinks}
     </div>
   );

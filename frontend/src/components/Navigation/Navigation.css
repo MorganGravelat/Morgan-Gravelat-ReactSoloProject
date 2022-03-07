@@ -9,11 +9,16 @@
       rgba(0, 0, 0, 0.22) 0px 15px 12px;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
-    width: 10%;
+    margin-right: 10px;
+    margin-top: 2em;
+    width: 5%;
+    align-items: center;
+    text-align: center;
 }
 button {
     width: 20%;
+    align-items: center;
+    text-align: center;
 }
 
 .nav-signup-login-container {
