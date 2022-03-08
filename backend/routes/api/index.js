@@ -11,4 +11,7 @@ router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });
 });
 
+const businessRouter = require("./businesses.js");
+router.use("/business", businessRouter);
+
 module.exports = router;

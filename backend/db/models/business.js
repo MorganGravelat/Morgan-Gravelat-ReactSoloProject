@@ -15,7 +15,6 @@ module.exports = (queryInterface, Sequelize) => {
       },
       description: {
         type: Sequelize.TEXT,
-        unique: true,
       },
       address: {
         allowNull: false,
@@ -31,6 +30,13 @@ module.exports = (queryInterface, Sequelize) => {
         validate: {
           max: 85,
           notEmpty: true
+        }
+      },
+      type_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        validate: {
+            notEmpty: true
         }
       },
       state: {
@@ -54,7 +60,15 @@ module.exports = (queryInterface, Sequelize) => {
       },
   }, {});
   Business.associate = function(models) {
+    Business.hasMany(models.Review, {foreignKey: 'business_id'})
     Business.belongsTo(models.User, { foreignKey: 'owner_id' });
+    Business.belongsTo(models.Type, { foreignKey: 'type_id' });
+    const columnMapping = {
+        through: 'Like',
+        otherKey: 'user_id',
+        foreignKey: 'business_id'
+        }
+        Business.belongsToMany(models.User, columnMapping);
   };
   return Business;
 };
