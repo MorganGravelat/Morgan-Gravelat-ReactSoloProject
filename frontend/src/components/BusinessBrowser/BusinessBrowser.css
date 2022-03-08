@@ -22,9 +22,7 @@
     border-radius: 10%;
 }
 
-.primary-text:hover {
-    font-size:larger;
-}
+
 
 img:hover {
     border:10px solid black;
@@ -42,4 +40,8 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     height: auto;
+}
+
+.business-select:hover > .primary-text:hover {
+    font-size:larger;
 }
