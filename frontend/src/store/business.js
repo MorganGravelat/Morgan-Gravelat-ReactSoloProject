@@ -1,4 +1,4 @@
-const LOAD = 'pokemon/LOAD';
+const LOAD = 'businesses/LOAD';
 
 const load = list => ({
     type: LOAD,
@@ -6,8 +6,8 @@ const load = list => ({
 });
 
 export const getBusinesses = () => async dispatch => {
-  const response = await fetch(`/api/pokemon`);
-
+  const response = await fetch(`/api/business`);
+    console.log(response)
   if (response.ok) {
     const list = await response.json();
     dispatch(load(list));
@@ -28,8 +28,8 @@ const businessReducer = (state = initialState, action) => {
       });
 
       return {
-        ...allBusinesses,
-        ...state,
+          ...state,
+          allBusinesses,
         list: action.list,
       };
     default:

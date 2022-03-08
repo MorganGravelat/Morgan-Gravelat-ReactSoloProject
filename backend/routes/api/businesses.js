@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get(
     '/',
-    asyncHandler(async function (_req, res) {
+    asyncHandler(async (req, res) => {
       const businesses = await Business.findAll();
       return res.json(businesses);
     })
