@@ -28,6 +28,7 @@ const BusinessBrowser = () => {
                                 ? 'nav-entry is-selected'
                                 : 'nav-entry'
                             }
+                            id='business-container-div'
                           >
                             <img src={`${business.image_url}`} className='nav-entry-image'/>
                             <div>
