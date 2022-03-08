@@ -1,0 +1,12 @@
+.nav-entry-image {
+ height: 400px;
+}
+.business-box {
+    display: flex;
+    margin-top: 5em;
+    margin-left: 7em;
+}
+.business-select {
+    margin-right: 25px;
+    text-align: center;
+}

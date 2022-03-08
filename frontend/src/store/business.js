@@ -7,10 +7,10 @@ const load = list => ({
 
 export const getBusinesses = () => async dispatch => {
   const response = await fetch(`/api/business`);
-    console.log(response)
   if (response.ok) {
     const list = await response.json();
     dispatch(load(list));
+    return list
   }
 };
 
@@ -29,7 +29,6 @@ const businessReducer = (state = initialState, action) => {
 
       return {
           ...state,
-          allBusinesses,
         list: action.list,
       };
     default:

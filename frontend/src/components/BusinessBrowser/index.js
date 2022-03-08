@@ -1,26 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useParams } from 'react-router-dom';
+import "./BusinessBrowser.css";
 
 import { getBusinesses } from '../../store/business';
 
 const BusinessBrowser = () => {
     const dispatch = useDispatch();
     const { businessId } = useParams();
-    const allBusinesses = useSelector(state => state.allBusinesses);
+    const allBusinesses = useSelector(state => state.business.list);
     useEffect(() => {
       dispatch(getBusinesses());
     }, [dispatch]);
-    console.log(getBusinesses());
+    useEffect(() => {
+        console.log(allBusinesses);
+      }, [allBusinesses]);
     if (!allBusinesses) {
         return null;
     }
     return (
-            <div>
-                {allBusinesses.map(business => {
-                    console.log(business, 'hey!');
-                    return (
-                        <NavLink key={business.title} to={`/business/${business.id}`}>
+            <div className='business-box'>
+                {allBusinesses.map(business => (
+                        <NavLink key={business.title} to={`/business/${business.id}`} className="business-select">
                           <div
                             className={
                               Number.parseInt(businessId) === business.id
@@ -28,17 +29,13 @@ const BusinessBrowser = () => {
                                 : 'nav-entry'
                             }
                           >
-                            <div
-                              className='nav-entry-image'
-                              style={{ backgroundImage: `url('${business.image_url}')` }}
-                            ></div>
+                            <img src={`${business.image_url}`} className='nav-entry-image'/>
                             <div>
                               <div className='primary-text'>{business.title}</div>
                             </div>
                           </div>
                         </NavLink>
-                    )
-                })}
+                ))}
             </div>
     )
 }
