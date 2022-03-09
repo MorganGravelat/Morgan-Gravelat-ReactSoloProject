@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import BusinessBrowser from "./components/BusinessBrowser";
+import "./index.css"
 
 function App() {
   const dispatch = useDispatch();
@@ -14,11 +15,13 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <BusinessBrowser />
-      )}
+    <div className = 'main-page-container-div'>
+        <div className='main-page-navbar-div'>
+            <Navigation isLoaded={isLoaded} />
+        </div>
+            {isLoaded && (
+              <BusinessBrowser />
+            )}
     </div>
   );
 }

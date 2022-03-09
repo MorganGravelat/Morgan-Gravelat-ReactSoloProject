@@ -1,19 +1,4 @@
-button {
-  background: linear-gradient(
-    0deg,
-    rgba(82, 0, 0, 1) 0%,
-    rgba(212, 0, 0, 1) 100%
-  );
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 40%;
-  margin-top: 50px;
-}
+
 form {
   text-align: center;
 }
@@ -46,4 +31,26 @@ input[type="password"] {
 
 .modal-button-signup {
     margin-left: 1em;
+}
+
+button {
+    margin-right: 20px;
+    background: linear-gradient(
+      0deg,
+      rgb(129, 72, 72) 0%,
+      rgb(126, 38, 38) 100%
+    );
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+      rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    color: white;
+    padding: 14px 20px;
+    margin-right: 10px;
+    margin-top: 2em;
+    width: 10%;
+    align-items: center;
+    text-align: center;
+}
+
+.navbar-signup-button {
+    width:20%
 }

@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useParams } from 'react-router-dom';
+import { Modal } from '../../context/Modal';
 import "./BusinessBrowser.css";
 
 import { getBusinesses } from '../../store/business';
+import BonusButton  from './BonusButton';
 
 const BusinessBrowser = () => {
     const dispatch = useDispatch();
     const { businessId } = useParams();
     const allBusinesses = useSelector(state => state.business.list);
+    const [showBusinessForm, setShowBusinessForm] = useState(false);
+
     useEffect(() => {
       dispatch(getBusinesses());
     }, [dispatch]);
@@ -19,7 +23,9 @@ const BusinessBrowser = () => {
         return null;
     }
     return (
+        <div>
             <div className='business-box'>
+                <BonusButton hidden={showBusinessForm} onClick={() => setShowBusinessForm(true)} />
                 {allBusinesses.map(business => (
                         <NavLink key={business.title} to={`/business/${business.id}`} className="business-select">
                           <div
@@ -38,6 +44,15 @@ const BusinessBrowser = () => {
                         </NavLink>
                 ))}
             </div>
+            {showBusinessForm ? (
+                <h1>Placeholder</h1>
+                //<CreateBusinessForm hideForm={() => setShowBusinessForm(false)} />
+            ) : (
+                <Route path='/business/${business.id}'>
+                    <h1>Hey!</h1>
+                </Route>
+            )}
+        </div>
     )
 }
 

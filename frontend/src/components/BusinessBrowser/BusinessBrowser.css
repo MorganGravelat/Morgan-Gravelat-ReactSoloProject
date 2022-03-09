@@ -4,9 +4,21 @@
  height: 400px;
 }
 .business-box {
-    display: flex;
+    display: grid;
     margin-top: 5em;
-    margin-left: 9em;
+    margin-left: 8em;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+@media screen and (max-width: 1200px) and (min-width: 701px) {
+    .business-box {
+        grid-template-columns: 1fr 1fr;
+        margin-left: 0;
+    }
+}
+@media screen and (max-width: 700px) {
+    .business-box {
+        grid-template-columns: 1fr;
+    }
 }
 .business-select {
     margin-right: 25px;
@@ -36,12 +48,42 @@ img {
 }
 body {
     background-color: rgb(138, 64, 64);
-    background-image: url('https://cdn.pixabay.com/photo/2018/03/04/09/48/space-3197606_1280.jpg');
+    background-image: url('https://img.freepik.com/free-photo/card-soft-template-paper-report_1258-167.jpg?t=st=1646772943~exp=1646773543~hmac=47c37d8703d26e4c7a3e4a2659185ede540cf9fe42e838e1669e479c2ff3fdb4&w=2000');
     background-repeat: no-repeat;
     background-size: cover;
     height: auto;
 }
 
-.business-select:hover > .primary-text:hover {
-    font-size:larger;
-}
+.bb {
+    align-items: center;
+    background-color: rgb(182, 65, 55);
+    border-radius: 50px;
+    bottom: 50px;
+    box-shadow: 0 4px 6px rgb(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    position: fixed;
+    left: 30px;
+    height: 70px;
+    width: 80px;
+    transition: box-shadow 0.5s, transform 0.25s;
+    zoom: 1;
+  }
+
+  .bb.is-hidden {
+    transform: scale(0);
+  }
+
+  .bb:hover {
+    box-shadow: 0 6px 8px rgb(0, 0, 0, 0.3);
+  }
+
+  .bb span {
+    transition: transform 0.5s;
+  }
+
+  .bb:active span {
+    transform: rotate(360deg);
+  }
