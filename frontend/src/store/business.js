@@ -1,10 +1,16 @@
 const LOAD = "businesses/LOAD";
 const ADD_ONE = "business/ADD_ONE";
+const LOAD_TYPES = "business/LOAD_TYPES"
 
 const load = (list) => ({
   type: LOAD,
   list,
 });
+
+const loadTypes = (types) => ({
+    type: LOAD_TYPES,
+    types,
+  });
 
 const addOne = (business) => ({
   type: ADD_ONE,
@@ -19,6 +25,15 @@ export const getBusinesses = () => async (dispatch) => {
     return list;
   }
 };
+
+export const getBusinessTypes = (business) => async (dispatch) => {
+    const response = await fetch(`/api/type`)
+    if (response.ok) {
+        const types = await response.json();
+        dispatch(loadTypes(types));
+        return types;
+    }
+}
 
 export const createBusiness = (business) => async (dispatch) => {
   const response = await fetch(`/api/business/create`, {
@@ -51,6 +66,11 @@ const businessReducer = (state = initialState, action) => {
       return {
         ...state,
         list: action.list,
+      };
+    case LOAD_TYPES:
+      return {
+        ...state,
+        types: action.types,
       };
     case ADD_ONE:
       const newBusiness = action.business;
