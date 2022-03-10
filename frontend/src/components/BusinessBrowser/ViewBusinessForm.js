@@ -7,7 +7,7 @@ import { getBusinessTypes } from "../../store/business";
 const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
 
     const [viewOne, setViewOne] = useState(false);
-    const business = useSelector((state) => state.business?.selectedBusiness)
+    const business = useSelector((state) => state.business?.currentBusiness)
 
     const dispatch = useDispatch();
     const businessType = useSelector((state) => {

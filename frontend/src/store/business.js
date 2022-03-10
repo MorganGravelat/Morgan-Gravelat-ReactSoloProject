@@ -3,6 +3,7 @@ const ADD_ONE = "businesses/ADD_ONE";
 const LOAD_TYPES = "businesses/LOAD_TYPES"
 const DELETE_ONE = "businesses/DELETE_ONE";
 const SELECT_BUSINESS = "businesses/SELECT_BUSINESS";
+const EDIT_ONE = "businesses/EDIT_ONE"
 // const GET_ONE = "businesses/GET_ONE"
 
 const load = (list) => ({
@@ -14,6 +15,11 @@ const loadTypes = (types) => ({
     type: LOAD_TYPES,
     types,
   });
+
+const editOne = (list) => ({
+  type: EDIT_ONE,
+  list,
+});
 
 const addOne = (business) => ({
   type: ADD_ONE,
@@ -74,9 +80,15 @@ export const getBusinessTypes = (business) => async (dispatch) => {
     }
 }
 
-export const chooseBusiness = business => async dispatch => {
-    console.log(business);
+export const chooseBusiness = (business) => async (dispatch) => {
     dispatch(selectBusiness(business));
+    return business;
+}
+
+export const editBusiness = (business) => async (dispatch) => {
+    const response = await fetch(`/api/business/edit`);
+    dispatch(editOne(business));
+    return business;
 }
 
 export const createBusiness = (business) => async (dispatch) => {
@@ -132,11 +144,8 @@ const businessReducer = (state = initialState, action) => {
     case SELECT_BUSINESS:
       return {
           ...state,
-          business: {
-              ...state.business,
-              selectedBusiness: action.business
-          }
-      }
+          currentBusiness: action.business,
+      };
     default:
       return state;
   }

@@ -8,15 +8,19 @@ import "./BusinessBrowser.css";
 
 import { getBusinesses, chooseBusiness } from '../../store/business';
 import BonusButton  from './BonusButton';
-
+//className={
+//     currentBusiness?.id === business.id
+//     ? 'nav-entry is-selected'
+//     : 'nav-entry'
+// }
 const BusinessBrowser = () => {
+    const Modal2 = Modal;
     const dispatch = useDispatch();
     const allBusinesses = useSelector(state => state.business.list);
-    const currentBusiness = useSelector(state => state.business.selectedBusiness);
+    //const currentBusiness = useSelector(state => state.business.selectedBusiness);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
    // const [showBusinessForm, setShowBusinessForm] = useState(false);
-
 
     useEffect(() => {
       dispatch(getBusinesses());
@@ -33,13 +37,8 @@ const BusinessBrowser = () => {
             <div className='business-box'>
                 <BonusButton hidden={showModal} onClick={() => setShowModal(true)} />
                 {allBusinesses.map(business => (
-                        <div key={business.title} className="business-select" onClick={() => {setShowModal2(true); chooseBusiness(business);}}>
+                        <div key={business.title} className="business-select" onClick={() => {chooseBusiness(business); setShowModal2(true)}}>
                           <div
-                            className={
-                              currentBusiness?.id === business.id
-                                ? 'nav-entry is-selected'
-                                : 'nav-entry'
-                            }
                             id='business-container-div'
                           >
                             <img src={`${business.image_url}`} className='nav-entry-image'/>
@@ -58,9 +57,9 @@ const BusinessBrowser = () => {
                 <></>
             )}
             {showModal2 ? (
-                <Modal onClose={() => setShowModal2(false)}>
-                    <ViewBusinessForm hideForm={() => setShowModal2(false)} allBusinesses={allBusinesses} />
-                </Modal>
+                <Modal2 onClose={() => setShowModal2(false)}>
+                    <ViewBusinessForm hideForm={() => setShowModal2(false)}/>
+                </Modal2>
             ) : (
                 <></>
             )}
