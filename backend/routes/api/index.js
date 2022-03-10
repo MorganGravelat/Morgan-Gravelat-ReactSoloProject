@@ -3,7 +3,8 @@ const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const businessRouter = require("./businesses.js");
-const typesRouter = require("./types.js")
+const typesRouter = require("./types.js");
+const reviewRouter = require("./reviews.js")
 
 router.use('/session', sessionRouter);
 
@@ -16,5 +17,6 @@ router.post('/test', (req, res) => {
 
 router.use("/business", businessRouter);
 router.use("/type", typesRouter);
+router.use("/review", reviewRouter);
 
 module.exports = router;

@@ -17,7 +17,7 @@ const BusinessBrowser = () => {
     const Modal2 = Modal;
     const dispatch = useDispatch();
     const allBusinesses = useSelector(state => state.business.list);
-    //const currentBusiness = useSelector(state => state.business.selectedBusiness);
+    const currentBusiness = useSelector(state => state.business.selectedBusiness);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
    // const [showBusinessForm, setShowBusinessForm] = useState(false);

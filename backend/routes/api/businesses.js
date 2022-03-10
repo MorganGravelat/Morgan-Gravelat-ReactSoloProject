@@ -32,7 +32,7 @@ router.post(
 
         return res.json(newBusiness)
     })
-  );
+  ); //TODO finish puts for reviews and business
 
   router.delete(
     "/:id",
