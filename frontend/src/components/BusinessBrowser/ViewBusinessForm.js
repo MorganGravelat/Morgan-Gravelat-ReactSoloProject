@@ -6,10 +6,10 @@ import { getBusinessTypes } from "../../store/business";
 const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
 
     const dispatch = useDispatch();
-    const { businessId } = useParams();
+    const { id } = useParams();
     const history = useHistory();
     const business = allBusinesses[businessId-1];
-    console.log('THIS IS THE LIST',businessId);
+    console.log('THIS IS ID!',id);
     const businessType = useSelector((state) => {
         console.log('THIS IS THE BUSINESS',state.business);
         return state.business.types[business.type_id-1]
