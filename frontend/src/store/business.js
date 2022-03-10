@@ -140,7 +140,6 @@ const businessReducer = (state = initialState, action) => {
       };
     case DELETE_ONE:
       setState = {...state};
-      console.log(action.businessId);
       delete setState.list[action.businessId];
       return setState;
     case ADD_ONE:
