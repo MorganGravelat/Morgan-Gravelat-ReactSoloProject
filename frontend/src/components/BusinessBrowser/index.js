@@ -29,6 +29,7 @@ const BusinessBrowser = () => {
         console.log(allBusinesses);
       }, [allBusinesses]);
 
+
     if (!allBusinesses) {
         return null;
     }
