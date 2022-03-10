@@ -38,7 +38,7 @@ const CreateBusinessForm = ({ hideForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {
+    const business = {
       title,
       description,
       address,
@@ -51,7 +51,7 @@ const CreateBusinessForm = ({ hideForm }) => {
 
     let createdBusiness;
 
-    createdBusiness = await dispatch(createBusiness(payload));
+    createdBusiness = await dispatch(createBusiness(business));
 
     // if (createdBusiness) {
     //   history.push(`/`);

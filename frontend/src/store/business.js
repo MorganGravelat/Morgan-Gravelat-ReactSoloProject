@@ -80,11 +80,17 @@ export const getBusinessTypes = (business) => async (dispatch) => {
     }
 }
 
-export const chooseBusiness = (business) => async (dispatch) => {
-    dispatch(selectBusiness(business));
-    return business;
-}
-
+// export const chooseBusiness = id => async dispatch => {
+//     const response = await fetch(`/api/songs/${id}`)
+//     if (response.ok) {
+//         const business = await response.json();
+//         dispatch(selectBusiness(business));
+//         return business
+//     }
+// }
+export const chooseBusiness = business => async dispatch => {
+            dispatch(selectBusiness(business));
+    }
 export const editBusiness = (business) => async (dispatch) => {
     const response = await fetch(`/api/business/edit`);
     dispatch(editOne(business));
@@ -113,6 +119,7 @@ const initialState = {
 };
 
 const businessReducer = (state = initialState, action) => {
+    let fixedState;
   switch (action.type) {
     case LOAD:
       const allBusinesses = {};
@@ -133,12 +140,12 @@ const businessReducer = (state = initialState, action) => {
       delete state.business[action.businessId];
       return state;
     case ADD_ONE:
-      const newBusiness = action.business;
+      const newState = {...state}
       return {
         ...state,
         business: {
           ...state.business,
-          newBusiness,
+          newBusiness: action.business,
         },
       };
     case SELECT_BUSINESS:
