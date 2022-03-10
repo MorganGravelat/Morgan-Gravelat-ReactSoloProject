@@ -45,81 +45,54 @@ export const getReviews = (id) => async (dispatch) => {
   }
 };
 
-export const getBusinessTypes = (business) => async (dispatch) => {
-    const response = await fetch(`/api/type`)
-    if (response.ok) {
-        const types = await response.json();
-        dispatch(loadTypes(types));
-        return types;
-    }
-}
-
-export const chooseBusiness = (business) => async (dispatch) => {
-    dispatch(selectBusiness(business));
-    return business;
-}
-
-export const editBusiness = (business) => async (dispatch) => {
+export const editReview = (review) => async (dispatch) => {
     const response = await fetch(`/api/business/edit`);
     dispatch(editOne(business));
     return business;
 }
 
-export const createBusiness = (business) => async (dispatch) => {
-  const response = await fetch(`/api/business/create`, {
+export const createReview = (review) => async (dispatch) => {
+  const response = await fetch(`/api/review/create`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(business),
+    body: JSON.stringify(review),
   });
   if (response.ok) {
-    const business = await response.json();
-    dispatch(addOne(business));
-    return business;
+    const review = await response.json();
+    dispatch(addOne(review));
+    return review;
   }
 };
 
 const initialState = {
   list: [],
-  types: [],
-  selectedBusiness: '',
 };
 
 const businessReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD:
-      const allBusinesses = {};
-      action.list.forEach((business) => {
-        allBusinesses[business.id] = business;
+      const allReviews = {};
+      action.list.forEach((review) => {
+        allReviews[review.id] = review;
       });
 
       return {
         ...state,
         list: action.list,
       };
-    case LOAD_TYPES:
-      return {
-        ...state,
-        types: action.types,
-      };
     case DELETE_ONE:
-      delete state.business[action.businessId];
+      delete state.review[action.reviewId];
       return state;
     case ADD_ONE:
-      const newBusiness = action.business;
-      return {
-        ...state,
-        business: {
-          ...state.business,
-          newBusiness,
-        },
-      };
-    case SELECT_BUSINESS:
-      return {
+      const newReview = {
           ...state,
-          currentBusiness: action.business,
+          [action.review.id]: action.review,
       };
+      const reviewList = newReview.list.map(id => newReview[id]);
+      reviewList.push(action.review);
+      return newReview
     default:
       return state;
   }
