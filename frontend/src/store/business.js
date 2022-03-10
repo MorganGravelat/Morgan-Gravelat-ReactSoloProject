@@ -2,6 +2,7 @@ const LOAD = "businesses/LOAD";
 const ADD_ONE = "businesses/ADD_ONE";
 const LOAD_TYPES = "businesses/LOAD_TYPES"
 const DELETE_ONE = "businesses/DELETE_ONE";
+const SELECT_BUSINESS = "businesses/SELECT_BUSINESS";
 // const GET_ONE = "businesses/GET_ONE"
 
 const load = (list) => ({
@@ -23,6 +24,11 @@ const deleteOne = businessId => ({
     type: DELETE_ONE,
     businessId,
 })
+
+const selectBusiness = business => ({
+    type: SELECT_BUSINESS,
+    business,
+});
 
 // const getOne = (business) => ({
 //     type: GET_ONE,
@@ -68,6 +74,10 @@ export const getBusinessTypes = (business) => async (dispatch) => {
     }
 }
 
+export const chooseBusiness = business => async dispatch => {
+    dispatch(selectBusiness(business));
+}
+
 export const createBusiness = (business) => async (dispatch) => {
   const response = await fetch(`/api/business/create`, {
     method: "post",
@@ -86,6 +96,7 @@ export const createBusiness = (business) => async (dispatch) => {
 const initialState = {
   list: [],
   types: [],
+  selectedBusiness: undefined,
 };
 
 const businessReducer = (state = initialState, action) => {
@@ -117,6 +128,14 @@ const businessReducer = (state = initialState, action) => {
           newBusiness,
         },
       };
+    case SELECT_BUSINESS:
+      return {
+          ...state,
+          business: {
+              ...state.business,
+              selectBusiness: action.business
+          }
+      }
     default:
       return state;
   }

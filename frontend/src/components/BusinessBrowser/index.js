@@ -6,16 +6,16 @@ import ViewBusinessForm from './ViewBusinessForm'
 import { Modal } from '../../context/Modal';
 import "./BusinessBrowser.css";
 
-import { getBusinesses, createBusiness } from '../../store/business';
+import { getBusinesses, chooseBusiness } from '../../store/business';
 import BonusButton  from './BonusButton';
 
 const BusinessBrowser = () => {
     const dispatch = useDispatch();
-    const { businessId } = useParams();
     const allBusinesses = useSelector(state => state.business.list);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
    // const [showBusinessForm, setShowBusinessForm] = useState(false);
+
 
     useEffect(() => {
       dispatch(getBusinesses());
@@ -32,7 +32,7 @@ const BusinessBrowser = () => {
             <div className='business-box'>
                 <BonusButton hidden={showModal} onClick={() => setShowModal(true)} />
                 {allBusinesses.map(business => (
-                        <NavLink key={business.title} to={`/business/${business.id}`} className="business-select" onClick={() => setShowModal2(true)}>
+                        <NavLink to={`/api/business/id`}key={business.title} className="business-select" onClick={() => {setShowModal2(true); chooseBusiness(business)}}>
                           <div
                             className={
                               Number.parseInt(businessId) === business.id

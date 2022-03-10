@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
-import { getBusinessTypes } from "../../store/business";
+import { useParams } from "react-router-dom";
+import { getBusinessTypes, chooseBusiness } from "../../store/business";
+
 
 const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
 
+    const [viewOne, setViewOne] = useState(false);
+    const business = useSelector((state) => {
+        return state.business.selectedBusiness
+    })
+
     const dispatch = useDispatch();
-    const { id } = useParams();
-    const history = useHistory();
-    const business = allBusinesses[businessId-1];
-    console.log('THIS IS ID!',id);
     const businessType = useSelector((state) => {
         console.log('THIS IS THE BUSINESS',state.business);
         return state.business.types[business.type_id-1]
@@ -19,7 +21,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         dispatch(getBusinessTypes());
       }, [dispatch]);
 
-    return (
+    return ( business && (
       <section className="form-holder centered middled">
         <div className="view-business-container-div">
             <div className="view-business-image-div">
@@ -52,6 +54,8 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
             </div>
         </div>
       </section>
+    )
+
     );
 };
 
