@@ -75,6 +75,7 @@ export const getBusinessTypes = (business) => async (dispatch) => {
 }
 
 export const chooseBusiness = business => async dispatch => {
+    console.log(business);
     dispatch(selectBusiness(business));
 }
 
@@ -96,7 +97,7 @@ export const createBusiness = (business) => async (dispatch) => {
 const initialState = {
   list: [],
   types: [],
-  selectedBusiness: undefined,
+  selectedBusiness: '',
 };
 
 const businessReducer = (state = initialState, action) => {
@@ -133,7 +134,7 @@ const businessReducer = (state = initialState, action) => {
           ...state,
           business: {
               ...state.business,
-              selectBusiness: action.business
+              selectedBusiness: action.business
           }
       }
     default:

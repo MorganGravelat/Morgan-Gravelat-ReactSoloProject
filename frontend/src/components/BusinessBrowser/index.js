@@ -12,6 +12,7 @@ import BonusButton  from './BonusButton';
 const BusinessBrowser = () => {
     const dispatch = useDispatch();
     const allBusinesses = useSelector(state => state.business.list);
+    const currentBusiness = useSelector(state => state.business.selectedBusiness);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
    // const [showBusinessForm, setShowBusinessForm] = useState(false);
@@ -32,10 +33,10 @@ const BusinessBrowser = () => {
             <div className='business-box'>
                 <BonusButton hidden={showModal} onClick={() => setShowModal(true)} />
                 {allBusinesses.map(business => (
-                        <NavLink to={`/api/business/id`}key={business.title} className="business-select" onClick={() => {setShowModal2(true); chooseBusiness(business)}}>
+                        <div key={business.title} className="business-select" onClick={() => {setShowModal2(true); chooseBusiness(business);}}>
                           <div
                             className={
-                              Number.parseInt(businessId) === business.id
+                              currentBusiness?.id === business.id
                                 ? 'nav-entry is-selected'
                                 : 'nav-entry'
                             }
@@ -46,7 +47,7 @@ const BusinessBrowser = () => {
                               <div className='primary-text'>{business.title}</div>
                             </div>
                           </div>
-                        </NavLink>
+                        </div>
                 ))}
             </div>
             {showModal ? (
