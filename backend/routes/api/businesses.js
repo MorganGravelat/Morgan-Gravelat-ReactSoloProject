@@ -15,28 +15,32 @@ router.get(
   })
 );
 
-router.post(
-  "/create",
-  csrfProtection,
-  asyncHandler(async (req, res) => {
-      const bodyInfo = req.body;
-
-    // console.log("THIS IS WHAT I WNAT TO SEE OH OMY GOD", Gameshelves);
-    // let data = Gameshelves.split("-");
-    // let gameShelfId = data[0];
-    // let gameId = data[1];
-    // const user = res.locals.user;
-    // const gameJoin = await db.Gamejoin.create({
-    //   gameShelfId,
-    //   gameId,
-    //});
-
-    //res.redirect(`/games`);
-    // const gameShelf = await db.Gameshelf.create({
-    //   name: gameShelfName,
-    //   userId: user.id,
-    // });
-    // res.redirect("/games");
-  })
+router.get(
+    "/:id",
+    asyncHandler( async function (req, res) {
+        const id = +req.params.id;
+        const business = await Business.findByPk(id);
+        return res.json(business);
+    })
 );
+
+router.post(
+    "/create",
+    csrfProtection,
+    asyncHandler(async (req, res) => {
+        const newBusiness = await Business.create(req.body);
+
+        return res.json(newBusiness)
+    })
+  );
+
+  router.delete(
+    "/:id",
+    csrfProtection,
+    asyncHandler(async (req, res) => {
+        const id = await Business.delete(Business.findByPk(+req.params.id));
+
+        return id;
+    })
+)
 module.exports = router;

@@ -15,6 +15,6 @@ router.post('/test', (req, res) => {
 
 
 router.use("/business", businessRouter);
-router.use("/type", businessRouter);
+router.use("/type", typesRouter);
 
 module.exports = router;

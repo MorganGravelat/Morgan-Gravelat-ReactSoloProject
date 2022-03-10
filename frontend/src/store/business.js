@@ -1,6 +1,8 @@
 const LOAD = "businesses/LOAD";
-const ADD_ONE = "business/ADD_ONE";
-const LOAD_TYPES = "business/LOAD_TYPES"
+const ADD_ONE = "businesses/ADD_ONE";
+const LOAD_TYPES = "businesses/LOAD_TYPES"
+const DELETE_ONE = "businesses/DELETE_ONE";
+// const GET_ONE = "businesses/GET_ONE"
 
 const load = (list) => ({
   type: LOAD,
@@ -16,6 +18,37 @@ const addOne = (business) => ({
   type: ADD_ONE,
   business,
 });
+
+const deleteOne = businessId => ({
+    type: DELETE_ONE,
+    businessId,
+})
+
+// const getOne = (business) => ({
+//     type: GET_ONE,
+//     business
+// })
+
+// export const getOnePokemon = id => async dispatch => {
+//     const response = await fetch (`/api/business/${id}`);
+
+//     if (response.ok) {
+//         const business = await response.json();
+//         dispatch(getOne(business));
+//     }
+// }
+
+export const deleteBusiness = id => async (dispatch) => {
+    const response = await fetch(`/api/business/${id}`, {
+        method: "DELETE",
+    });
+    if (response.ok) {
+      const id = await response.json();
+      dispatch(deleteOne(id));
+      return id;
+    }
+}
+
 
 export const getBusinesses = () => async (dispatch) => {
   const response = await fetch(`/api/business`);
@@ -72,6 +105,9 @@ const businessReducer = (state = initialState, action) => {
         ...state,
         types: action.types,
       };
+    case DELETE_ONE:
+      delete state.business[action.businessId];
+      return state;
     case ADD_ONE:
       const newBusiness = action.business;
       return {

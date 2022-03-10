@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Route, useParams } from 'react-router-dom';
 import CreateBusinessForm from './CreateBusinessForm'
+import ViewBusinessForm from './ViewBusinessForm'
 import { Modal } from '../../context/Modal';
 import "./BusinessBrowser.css";
 
@@ -13,6 +14,7 @@ const BusinessBrowser = () => {
     const { businessId } = useParams();
     const allBusinesses = useSelector(state => state.business.list);
     const [showModal, setShowModal] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
    // const [showBusinessForm, setShowBusinessForm] = useState(false);
 
     useEffect(() => {
@@ -21,9 +23,7 @@ const BusinessBrowser = () => {
     useEffect(() => {
         console.log(allBusinesses);
       }, [allBusinesses]);
-    // useEffect(() => {
 
-    // })
     if (!allBusinesses) {
         return null;
     }
@@ -32,7 +32,7 @@ const BusinessBrowser = () => {
             <div className='business-box'>
                 <BonusButton hidden={showModal} onClick={() => setShowModal(true)} />
                 {allBusinesses.map(business => (
-                        <NavLink key={business.title} to={`/business/${business.id}`} className="business-select">
+                        <NavLink key={business.title} to={`/business/${business.id}`} className="business-select" onClick={() => setShowModal2(true)}>
                           <div
                             className={
                               Number.parseInt(businessId) === business.id
@@ -54,9 +54,14 @@ const BusinessBrowser = () => {
                     <CreateBusinessForm hideForm={() => setShowModal(false)} />
                   </Modal>
             ) : (
-                <Route path='/business/${business.id}'>
-                    <h1>Hey!</h1>
-                </Route>
+                <></>
+            )}
+            {showModal2 ? (
+                <Modal onClose={() => setShowModal2(false)}>
+                    <ViewBusinessForm hideForm={() => setShowModal2(false)} allBusinesses={allBusinesses} />
+                </Modal>
+            ) : (
+                <></>
             )}
         </div>
     )
