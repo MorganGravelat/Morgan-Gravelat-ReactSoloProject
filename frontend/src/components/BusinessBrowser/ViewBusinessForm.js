@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getBusinessTypes } from "../../store/business";
+import { getBusinessTypes, deleteBusiness } from "../../store/business";
 
 
 const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
@@ -41,9 +41,6 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                         {`${business?.city}`}
                     </h3>
                     <h3>
-                        {`${businessType}`}
-                    </h3>
-                    <h3>
                         {`${business?.state}`}
                     </h3>
                     <h3>
@@ -51,6 +48,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                     </h3>
                 </div>
             </div>
+            <button onClick={() => dispatch(deleteBusiness(business.id))}>-</button>
         </div>
       </section>
     );

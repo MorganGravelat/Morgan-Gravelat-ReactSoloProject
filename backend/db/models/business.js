@@ -48,10 +48,6 @@ module.exports = (queryInterface, Sequelize) => {
       zipCode: {
         allowNull: false,
         type: Sequelize.STRING(10),
-        validate: {
-          max: 10,
-          notEmpty: true,
-        }
       },
       image_url: {
         allowNull: false,

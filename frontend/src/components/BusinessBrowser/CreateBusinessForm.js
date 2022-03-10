@@ -7,14 +7,16 @@ const CreateBusinessForm = ({ hideForm }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const businessTypes = useSelector((state) => state.business.types);
+  const owner_id = useSelector((state) => state.session.user.id)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [type, setType] = useState(businessTypes[0]);
+  const [typeId, setTypeId] = useState(businessTypes[0])
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [image_url, setimage_url] = useState("");
 
   const updateTitle = (e) => setTitle(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
@@ -23,7 +25,17 @@ const CreateBusinessForm = ({ hideForm }) => {
   const updateType = (e) => setType(e.target.value);
   const updateState = (e) => setState(e.target.value);
   const updateZipCode = (e) => setZipCode(e.target.value);
-  const updateImageUrl = (e) => setImageUrl(e.target.value);
+  const updateImageUrl = (e) => setimage_url(e.target.value);
+    // function getTypeId () {
+    //     for (let i = 0; i < businessTypes.length; i++) {
+    //         let ele = businessTypes[i];
+    //         console.log('running?',ele.business.type);
+    //         if (type == ele.business_type) {
+    //             setTypeId(ele.id);
+    //         }
+    //     }
+    // }
+let type_id = type?.id
 
   useEffect(() => {
     dispatch(getBusinessTypes());
@@ -39,14 +51,15 @@ const CreateBusinessForm = ({ hideForm }) => {
     e.preventDefault();
 
     const payload = {
+      owner_id,
       title,
       description,
       address,
       city,
-      type,
+      type_id,
       state,
       zipCode,
-      imageUrl,
+      image_url,
     };
 
     let createdBusiness;
@@ -102,7 +115,7 @@ const CreateBusinessForm = ({ hideForm }) => {
         <input
           type="text"
           placeholder="Image Address"
-          value={imageUrl}
+          value={image_url}
           onChange={updateImageUrl}
         />
         <select value={type} onChange={updateType}>

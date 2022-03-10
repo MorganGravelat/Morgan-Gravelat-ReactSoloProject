@@ -1,3 +1,4 @@
+import { csrfFetch } from "./csrf";
 const LOAD = "businesses/LOAD";
 const ADD_ONE = "businesses/ADD_ONE";
 const LOAD_TYPES = "businesses/LOAD_TYPES"
@@ -31,7 +32,7 @@ const deleteOne = businessId => ({
     businessId,
 })
 
-const selectBusiness = business => ({
+export const selectBusiness = business => ({
     type: SELECT_BUSINESS,
     business,
 });
@@ -40,6 +41,7 @@ const selectBusiness = business => ({
 //     type: GET_ONE,
 //     business
 // })
+
 
 // export const getOnePokemon = id => async dispatch => {
 //     const response = await fetch (`/api/business/${id}`);
@@ -51,13 +53,13 @@ const selectBusiness = business => ({
 // }
 
 export const deleteBusiness = id => async (dispatch) => {
-    const response = await fetch(`/api/business/${id}`, {
+    const response = await csrfFetch(`/api/business/${id}`, {
         method: "DELETE",
     });
     if (response.ok) {
-      const id = await response.json();
-      dispatch(deleteOne(id));
-      return id;
+      const businessId = await response.json();
+      dispatch(deleteOne(businessId));
+      return;
     }
 }
 
@@ -98,7 +100,7 @@ export const editBusiness = (business) => async (dispatch) => {
 }
 
 export const createBusiness = (business) => async (dispatch) => {
-  const response = await fetch(`/api/business/create`, {
+  const response = await csrfFetch(`/api/business/create`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -119,7 +121,7 @@ const initialState = {
 };
 
 const businessReducer = (state = initialState, action) => {
-    let fixedState;
+    let setState;
   switch (action.type) {
     case LOAD:
       const allBusinesses = {};
@@ -137,17 +139,14 @@ const businessReducer = (state = initialState, action) => {
         types: action.types,
       };
     case DELETE_ONE:
-      delete state.business[action.businessId];
-      return state;
+      setState = {...state};
+      console.log('Tough Luck you FUCK!',action.businessId);
+      delete setState.list[action.businessId];
+      return setState;
     case ADD_ONE:
-      const newState = {...state}
-      return {
-        ...state,
-        business: {
-          ...state.business,
-          newBusiness: action.business,
-        },
-      };
+      setState = {...state}
+      setState.list[action.business.id] = action.business;
+      return setState;
     case SELECT_BUSINESS:
       return {
           ...state,
