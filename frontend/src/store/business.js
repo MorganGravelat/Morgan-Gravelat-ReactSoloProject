@@ -17,9 +17,9 @@ const loadTypes = (types) => ({
     types,
   });
 
-const editOne = (business) => ({
+const editOne = (editBusiness) => ({
   type: EDIT_ONE,
-  business,
+  editBusiness,
 });
 
 const addOne = (business) => ({
@@ -101,6 +101,7 @@ export const editBusiness = (business) => async (dispatch) => {
 
     if (response.ok) {
         const editBusiness = await response.json();
+        console.log('NOTICE', editBusiness)
         dispatch(editOne(editBusiness));
         return;
     }
@@ -159,9 +160,9 @@ const businessReducer = (state = initialState, action) => {
           currentBusiness: action.business,
       };
     case EDIT_ONE:
-        console.log('EDIT ONE',action.business);
+        console.log('HEYEYEYE',action.editBusiness);
         setState = {...state}
-        setState.list[action.business.businessId] = action.business;
+        setState.list[action.editBusiness.id] = action.editBusiness;
         return setState;
     default:
       return state;

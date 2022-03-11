@@ -72,9 +72,11 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         image_url,
       };
 
-      dispatch(editBusiness(business));
+      await dispatch(editBusiness(business));
 
       setShowEdit(false);
+
+
 
     };
 

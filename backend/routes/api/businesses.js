@@ -55,7 +55,7 @@ router.post(
 //   )
 
   router.put(
-      '/:id',
+      '/edit/:id',
       requireAuth,
       validateBusinessEdit,
       asyncHandler(async (req, res) => {
