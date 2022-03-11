@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { getBusinessTypes, createBusiness } from "../../store/business";
+import { ValidationError } from '../../utils/validationError';
+import ErrorMessage from './ErrorMessage';
 
 const CreateBusinessForm = ({ hideForm }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const businessTypes = useSelector((state) => state.business.types);
   const owner_id = useSelector((state) => state.session.user.id)
   const [title, setTitle] = useState("");
@@ -17,6 +17,7 @@ const CreateBusinessForm = ({ hideForm }) => {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [image_url, setimage_url] = useState("");
+  const [errorMessages, setErrorMessages] = useState({});
 
   const updateTitle = (e) => setTitle(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
@@ -62,17 +63,24 @@ let type_id = type?.id
       image_url,
     };
 
-    let createdBusiness;
+    const createdBusiness = await dispatch(createBusiness(payload));
 
-    createdBusiness = await dispatch(createBusiness(payload));
+    // let createdBusiness;
+    // try {
+    //     createdBusiness = await dispatch(createBusiness(payload));
+    // } catch (error) {
+    //     if (error instanceof ValidationError) setErrorMessages(error.errors);
+    //     else setErrorMessages({ overall: error.toString().slice(7) })
+    // }
+
 
     // if (createdBusiness) {
-    //   history.push(`/`);
-    //   hideForm();
+    //   setErrorMessages({});
     // }
   };
   return (
     <section className="new-form-holder centered middled">
+      <ErrorMessage message={errorMessages.overall} />
       <form className="create-Business-form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -81,6 +89,7 @@ let type_id = type?.id
           value={title}
           onChange={updateTitle}
         />
+        <ErrorMessage label={"Title"} message={errorMessages.title} />
         <input
           type="text"
           placeholder="Description"

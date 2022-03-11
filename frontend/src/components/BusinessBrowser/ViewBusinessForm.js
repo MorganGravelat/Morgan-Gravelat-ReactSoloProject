@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getBusinessTypes, deleteBusiness, createBusiness } from "../../store/business";
+import { getBusinessTypes, deleteBusiness, editBusiness } from "../../store/business";
+import { getReviews } from "../../store/review";
 
 
 const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
@@ -11,6 +12,8 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const business = useSelector((state) => state.business?.currentBusiness)
     const businessTypes = useSelector((state) => state.business.types);
     const owner_id = useSelector((state) => state.session.user.id)
+    const reviews = useSelector((state) => state.reviews)
+    const [id, setId] = useState(business.id)
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [address, setAddress] = useState("");
@@ -27,21 +30,37 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const updateState = (e) => setState(e.target.value);
     const updateZipCode = (e) => setZipCode(e.target.value);
     const updateImageUrl = (e) => setimageurl(e.target.value);
-
-    const dispatch = useDispatch();
     const businessType = useSelector((state) => {
-        console.log('THIS IS THE BUSINESS',business);
         return state.business?.types[business?.type_id-1]
     });
+    function setValues() {
+        setId(parseInt(id));
+        setTitle(business.title);
+        setDescription(business.description);
+        setAddress(business.address);
+        setCity(business.city);
+        setType(businessType);
+        setState(business.state);
+        setZipCode(business.zipCode);
+        setimageurl(business.image_url);
+
+    }
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getBusinessTypes());
-      }, [dispatch]);
+        (async () => {
+            dispatch(getBusinessTypes());
+            dispatch(getReviews(business.id));
+        })();
+    }, [dispatch]);
+
 
     const handleSubmit = async (e) => {
       e.preventDefault();
 
       const business = {
+        id,
         owner_id,
         title,
         description,
@@ -53,7 +72,9 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         image_url,
       };
 
-      let createdBusiness = await dispatch(createBusiness(business));
+      const editedBusiness = await dispatch(editBusiness(business));
+
+      setShowEdit(false);
 
     };
 
@@ -61,7 +82,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     <div>
     {showEdit ? (
         <section className="new-form-holder centered middled">
-        <form className="create-Business-form" onSubmit={handleSubmit}>
+        <form className="edit-Business-form" onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Title"
@@ -116,38 +137,47 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
       </section>
     ) : (
     <section className="form-holder centered middled">
-        <div className="view-business-container-div">
-            <div className="view-business-image-div">
-                <img className='view-business-img' src={`${business?.image_url}`}/>
+        <div>
+            <div className="view-business-container-div">
+                <div className="view-business-image-div">
+                    <img className='view-business-img' src={`${business?.image_url}`}/>
+                </div>
+                <div className="view-business-info-div">
+                    <div className='view-business-title-div'>
+                    <h1>{`${business?.title}`}</h1>
+                    </div>
+                    <div className='view-business-description-div'>
+                        <h2>{`${business?.description}`}</h2>
+                    </div>
+                    <div className='view-business-details-div'>
+                        <h3>
+                            {`${business?.address}`}
+                        </h3>
+                        <h3>
+                            {`${business?.city}`}
+                        </h3>
+                        <h3>
+                            {`${business?.state}`}
+                        </h3>
+                        <h3>
+                            {`${business?.zipCode}`}
+                        </h3>
+                    </div>
+                </div>
+                <button className='view-business-modal-button' onClick={() => dispatch(deleteBusiness(business.id))}>❌</button>
+                <button className='view-business-modal-button' onClick={() => {setShowEdit(true); setValues(); }}>✎</button>
             </div>
-            <div className="view-business-info-div">
-                <div className='view-business-title-div'>
-                <h1>{`${business?.title}`}</h1>
-                </div>
-                <div className='view-business-description-div'>
-                    <h2>{`${business?.description}`}</h2>
-                </div>
-                <div className='view-business-details-div'>
-                    <h3>
-                        {`${business?.address}`}
-                    </h3>
-                    <h3>
-                        {`${business?.city}`}
-                    </h3>
-                    <h3>
-                        {`${business?.state}`}
-                    </h3>
-                    <h3>
-                        {`${business?.zipCode}`}
-                    </h3>
-                </div>
+            <div className='view-business-comments-div'>
+                <h1>Comments</h1>
             </div>
-            <button className='view-business-modal-button' onClick={() => dispatch(deleteBusiness(business.id))}>❌</button>
-            <button className='view-business-modal-button' onClick={() => setShowEdit(true)}>✎</button>
         </div>
     </section>)}
   </div>
     );
 };
+
+ /*{ {reviews.map(business_type =>
+                    <option key={business_type.business_type}>{business_type.business_type}</option>
+                )} }*/
 
 export default ViewBusinessForm;

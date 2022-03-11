@@ -17,9 +17,9 @@ const loadTypes = (types) => ({
     types,
   });
 
-const editOne = (list) => ({
+const editOne = (business) => ({
   type: EDIT_ONE,
-  list,
+  business,
 });
 
 const addOne = (business) => ({
@@ -95,6 +95,7 @@ export const chooseBusiness = business => async dispatch => {
     }
 export const editBusiness = (business) => async (dispatch) => {
     const response = await fetch(`/api/business/edit`);
+    console.log('EDIT BUSINES',business);
     dispatch(editOne(business));
     return business;
 }
@@ -128,7 +129,6 @@ const businessReducer = (state = initialState, action) => {
       action.list.forEach((business) => {
         allBusinesses[business.id] = business;
       });
-
       return {
         ...state,
         list: action.list,
@@ -153,8 +153,9 @@ const businessReducer = (state = initialState, action) => {
           currentBusiness: action.business,
       };
     case EDIT_ONE:
+        console.log('EDIT ONE',action.business);
         setState = {...state}
-        setState.list[action.business.id] = action.business;
+        setState.list[action.business.businessId] = action.business;
         return setState;
     default:
       return state;

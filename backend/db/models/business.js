@@ -4,7 +4,10 @@ module.exports = (queryInterface, Sequelize) => {
   const Business = queryInterface.define('Business', {
       owner_id: {
           allowNull: false,
-          type: Sequelize.INTEGER
+          type: Sequelize.INTEGER,
+          validate: {
+            notEmpty: true,
+          }
       },
       title: {
         allowNull: false,
@@ -40,9 +43,11 @@ module.exports = (queryInterface, Sequelize) => {
         }
       },
       state: {
+        allowNull: false,
         type: Sequelize.STRING(50),
         validate: {
-          max: 50
+          max: 50,
+          notEmpty: true
         },
       },
       zipCode: {
