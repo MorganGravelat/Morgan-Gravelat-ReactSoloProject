@@ -24,10 +24,10 @@ module.exports = (queryInterface, Sequelize) => {
             validate: {
                 notEmpty: true,
             },
+        },
         comments: {
             type: Sequelize.TEXT,
-        }
-        }
+        },
 
     },
     {}

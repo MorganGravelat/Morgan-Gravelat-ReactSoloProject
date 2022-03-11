@@ -28,6 +28,27 @@
     font-size: larger;
 }
 
+.comments-section-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    color: black;
+    background-color: white;
+    width: 80%;
+    border: 2px solid black;
+    margin-top: 5px;
+
+}
+.written-comments-div {
+    border-top: 10px solid black;
+    display: flex;
+    flex-direction: column;
+    flex-flow: center;
+    align-items: center;
+
+}
+
 .primary-text {
     font-family: 'Anton', sans-serif;
     text-decoration: none;

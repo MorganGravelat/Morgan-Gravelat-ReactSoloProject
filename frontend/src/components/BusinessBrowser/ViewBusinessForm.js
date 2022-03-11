@@ -23,6 +23,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const [state, setState] = useState("");
     const [zipCode, setZipCode] = useState("");
     const [image_url, setimageurl] = useState("");
+    const [comment, setComment] = useState('');
     const updateTitle = (e) => setTitle(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
     const updateAddress = (e) => setAddress(e.target.value);
@@ -31,6 +32,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const updateState = (e) => setState(e.target.value);
     const updateZipCode = (e) => setZipCode(e.target.value);
     const updateImageUrl = (e) => setimageurl(e.target.value);
+    const updateComment = (e) => setComment(e.target.value);
     const businessType = useSelector((state) => {
         return state.business?.types[business?.type_id-1]
     });
@@ -188,7 +190,19 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                 }
             </div>
             <div className='view-business-comments-div'>
-                {Object.values(reviews).map((review) => <h3 key={review.id}>{review.comments}</h3>)}
+                <div className='written-comments-div'>
+                {Object.values(reviews).map((review) => (<div className='comments-section-div'><h3 key={review.id}>{review.comments}</h3></div>))}
+                </div>
+                <section className="new-form-holder centered middled">
+                <form className="edit-Business-form" onSubmit={handleSubmit}>
+                    <input
+                    type="text"
+                    placeholder="Write out a Review"
+                    value={comment}
+                    onChange={updateComment}
+                    />
+                </form>
+                </section>
             </div>
         </div>
     </section>)}
