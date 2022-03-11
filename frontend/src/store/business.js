@@ -94,10 +94,16 @@ export const chooseBusiness = business => async dispatch => {
             dispatch(selectBusiness(business));
     }
 export const editBusiness = (business) => async (dispatch) => {
-    const response = await fetch(`/api/business/edit`);
-    console.log('EDIT BUSINES',business);
-    dispatch(editOne(business));
-    return business;
+    const response = await csrfFetch(`/api/business/edit/${business.id}`, {
+        method: "PUT",
+        body: JSON.stringify(business)
+    });
+
+    if (response.ok) {
+        const editBusiness = await response.json();
+        dispatch(editOne(editBusiness));
+        return;
+    }
 }
 
 export const createBusiness = (business) => async (dispatch) => {

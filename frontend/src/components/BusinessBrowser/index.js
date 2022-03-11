@@ -42,12 +42,12 @@ const BusinessBrowser = () => {
             <div className='business-box'>
                 <BonusButton hidden={showModal} onClick={() => setShowModal(true)} />
                 {allBusinesses.map(business => (
-                        <div key={business.title} className="business-select" onClick={() => {dispatch(selectBusiness(business)); setShowModal2(true)}}>
+                        <div key={business.title} className="business-select">
                           <div
                             id='business-container-div'
                           >
-                            <img src={`${business.image_url}`} className='nav-entry-image'/>
-                            <div>
+                            <img onClick={() => {dispatch(selectBusiness(business)); setShowModal2(true)}} src={`${business.image_url}`} className='nav-entry-image'/>
+                            <div onClick={() => {dispatch(selectBusiness(business)); setShowModal2(true)}}>
                               <div className='primary-text'>{business.title}</div>
                             </div>
                           </div>

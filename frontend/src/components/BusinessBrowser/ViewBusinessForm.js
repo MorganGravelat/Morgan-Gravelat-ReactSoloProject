@@ -6,13 +6,13 @@ import { getReviews } from "../../store/review";
 
 
 const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
-
+    let owner_id;
+    const businessTypes = useSelector((state) => state.business.types);
+    const business = useSelector((state) => state.business?.currentBusiness)
+    owner_id = useSelector((state) => state.session.user?.id)
+    const reviews = useSelector((state) => state.reviews.allReviews)
     const [viewOne, setViewOne] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
-    const business = useSelector((state) => state.business?.currentBusiness)
-    const businessTypes = useSelector((state) => state.business.types);
-    const owner_id = useSelector((state) => state.session.user.id)
-    const reviews = useSelector((state) => state.reviews)
     const [id, setId] = useState(business.id)
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -72,7 +72,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         image_url,
       };
 
-      const editedBusiness = await dispatch(editBusiness(business));
+      dispatch(editBusiness(business));
 
       setShowEdit(false);
 
@@ -164,8 +164,13 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                         </h3>
                     </div>
                 </div>
-                <button className='view-business-modal-button' onClick={() => dispatch(deleteBusiness(business.id))}>❌</button>
-                <button className='view-business-modal-button' onClick={() => {setShowEdit(true); setValues(); }}>✎</button>
+                {owner_id ? (
+                    <div>
+                        <button className='view-business-modal-button' onClick={() => dispatch(deleteBusiness(business.id))}>❌</button>
+                        <button className='view-business-modal-button' onClick={() => {setShowEdit(true); setValues(); }}>✎</button>
+                    </div>
+                ) : (<></>)
+                };
             </div>
             <div className='view-business-comments-div'>
                 <h1>Comments</h1>
