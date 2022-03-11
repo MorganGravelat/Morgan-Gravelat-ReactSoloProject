@@ -24,6 +24,9 @@
     margin-right: 25px;
     text-align: center;
 }
+.view-business-modal-button {
+    font-size: larger;
+}
 
 .primary-text {
     font-family: 'Anton', sans-serif;

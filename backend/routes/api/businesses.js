@@ -52,6 +52,19 @@ router.post(
     })
   )
 
+  router.put(
+      '/:id',
+      asyncHandler(async (req, res) => {
+          const id = parseInt(req.params.id);
+          const business = await Business.findByPk(id);
+
+          business.set({...req.body});
+          business.dataValues.updatedAt = new Date();
+          await business.save();
+          return res.json(business);
+      })
+  )
+
   router.delete(
     "/:id",
     asyncHandler(async (req, res) => {

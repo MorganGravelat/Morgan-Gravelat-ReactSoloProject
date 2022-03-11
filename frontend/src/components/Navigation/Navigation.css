@@ -14,9 +14,10 @@
     width: 5%;
     align-items: center;
     text-align: center;
-    border: 5px rgb(133, 11, 11);
+    border: 7px rgb(133, 11, 11);
     transition: border 1s;
-    border-style: groove;
+    border-style:inset;
+    padding-bottom: 10px;
 }
 .navbar-home-button:hover {
     background: linear-gradient(
@@ -24,15 +25,16 @@
       rgb(129, 72, 72) 0%,
       rgb(126, 38, 38) 100%
     );
-    border: 10px rgb(133, 11, 11);
-    border-style: groove;
+    border: 3px rgb(133, 11, 11);
+    border-style:inset;
     transition: border 1s;
 }
 .nav-signup-login-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10rem;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    background-color: white;
 }
 
 .profile-dropdown-logout-button {
@@ -41,6 +43,16 @@
 
 .user-dropdown-button {
     width: 10%;
+    border: 7px rgb(133, 11, 11);
+    border-style:inset;
+    transition: border 1s;
+}
+
+.user-dropdown-button:hover {
+    width: 10%;
+    border: 4px rgb(133, 11, 11);
+    border-style:inset;
+    transition: border 1s;
 }
 
 .login-signup-navbar-div {

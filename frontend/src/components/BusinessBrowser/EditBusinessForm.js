@@ -7,6 +7,7 @@ const CreateBusinessForm = ({ hideForm }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const businessTypes = useSelector((state) => state.business.types);
+  const owner_id = useSelector((state) => state.session.user.id)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
@@ -14,7 +15,7 @@ const CreateBusinessForm = ({ hideForm }) => {
   const [type, setType] = useState(businessTypes[0]);
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [image_url, setimageurl] = useState("");
 
   const updateTitle = (e) => setTitle(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
@@ -23,7 +24,7 @@ const CreateBusinessForm = ({ hideForm }) => {
   const updateType = (e) => setType(e.target.value);
   const updateState = (e) => setState(e.target.value);
   const updateZipCode = (e) => setZipCode(e.target.value);
-  const updateImageUrl = (e) => setImageUrl(e.target.value);
+  const updateImageUrl = (e) => setimageurl(e.target.value);
 
   useEffect(() => {
     dispatch(getBusinessTypes());
@@ -39,6 +40,7 @@ const CreateBusinessForm = ({ hideForm }) => {
     e.preventDefault();
 
     const business = {
+      owner_id,
       title,
       description,
       address,
@@ -46,17 +48,11 @@ const CreateBusinessForm = ({ hideForm }) => {
       type,
       state,
       zipCode,
-      imageUrl,
+      image_url,
     };
 
-    let createdBusiness;
+    let createdBusiness = await dispatch(createBusiness(business));
 
-    createdBusiness = await dispatch(createBusiness(business));
-
-    // if (createdBusiness) {
-    //   history.push(`/`);
-    //   hideForm();
-    // }
   };
   return (
     <section className="new-form-holder centered middled">
@@ -102,7 +98,7 @@ const CreateBusinessForm = ({ hideForm }) => {
         <input
           type="text"
           placeholder="Image Address"
-          value={imageUrl}
+          value={image_url}
           onChange={updateImageUrl}
         />
         <select value={type} onChange={updateType}>

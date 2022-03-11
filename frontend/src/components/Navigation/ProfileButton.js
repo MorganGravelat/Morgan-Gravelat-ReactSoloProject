@@ -1,11 +1,14 @@
 // frontend/src/components/Navigation/ProfileButton.js
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user);
   const [showMenu, setShowMenu] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const openMenu = () => {
     if (showMenu) return;
@@ -28,23 +31,22 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
   };
-
   return (
     <>
-    <br />
-      <button onClick={openMenu} className="user-dropdown-button">
-        <i className="fas fa-user-circle" />
-      </button>
-      <br/>
-      {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li>
-            <button onClick={logout} className="profile-dropdown-logout-button">Log Out</button>
-          </li>
-        </ul>
-      )}
+        <button onClick={() => {openMenu(); setShowModal(true);}} className="user-dropdown-button">
+                <i className="fas fa-user-circle" />
+        </button>
+        {showModal && (
+            <Modal onClose={() => setShowModal(false)}>
+                <ul className="profile-dropdown">
+                  <li>{user.username}</li>
+                  <li>{user.email}</li>
+                  <li>
+                    <button onClick={logout} className="profile-dropdown-logout-button">Log Out</button>
+                  </li>
+                </ul>
+            </Modal>
+        )}
     </>
   );
 }

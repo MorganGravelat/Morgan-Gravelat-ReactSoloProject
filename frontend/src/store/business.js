@@ -140,6 +140,7 @@ const businessReducer = (state = initialState, action) => {
       };
     case DELETE_ONE:
       setState = {...state};
+      console.log('NOTICE ME NOTICE ME PELEASE',action.businessId)
       delete setState.list[action.businessId];
       return setState;
     case ADD_ONE:
@@ -151,6 +152,10 @@ const businessReducer = (state = initialState, action) => {
           ...state,
           currentBusiness: action.business,
       };
+    case EDIT_ONE:
+        setState = {...state}
+        setState.list[action.business.id] = action.business;
+        return setState;
     default:
       return state;
   }
