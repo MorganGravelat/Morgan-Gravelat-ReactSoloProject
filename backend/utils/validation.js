@@ -110,10 +110,18 @@ const validateBusinessEdit = [
     handleValidationErrors
 ];
 
+const validateReview = [
+    check('rating')
+        .exists({ checkFalsy: true })
+        .withMessage('You must provide a rating'),
+    handleValidationErrors
+];
+
 module.exports = {
   handleValidationErrors,
   validateLogin,
   validateSignup,
   validateBusiness,
   validateBusinessEdit,
+  validateReview,
 };
