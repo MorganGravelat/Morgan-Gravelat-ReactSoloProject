@@ -8,7 +8,8 @@ import { getReviews } from "../../store/review";
 const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     let owner_id;
     const businessTypes = useSelector((state) => state.business.types);
-    const business = useSelector((state) => state.business?.currentBusiness)
+    const grabBusiness = useSelector((state) => state.business?.currentBusiness)
+    let business = grabBusiness
     owner_id = useSelector((state) => state.session.user?.id)
     const reviews = useSelector((state) => state.reviews.allReviews)
     const [viewOne, setViewOne] = useState(false);
@@ -33,6 +34,10 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const businessType = useSelector((state) => {
         return state.business?.types[business?.type_id-1]
     });
+
+    function setBusiness() {
+
+    }
     function setValues() {
         setId(parseInt(id));
         setTitle(business.title);
@@ -59,7 +64,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const handleSubmit = async (e) => {
       e.preventDefault();
 
-      const business = {
+      const Business = {
         id,
         owner_id,
         title,
@@ -71,8 +76,16 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         zipCode,
         image_url,
       };
+      business.title = title
+      business.description = description
+      business.address = address
+      business.city = city
+      business.type = type
+      business.state = state
+      business.zipCode = zipCode
+      business.image_url = image_url
 
-      await dispatch(editBusiness(business));
+      await dispatch(editBusiness(Business));
 
       setShowEdit(false);
 
@@ -146,23 +159,23 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                 </div>
                 <div className="view-business-info-div">
                     <div className='view-business-title-div'>
-                    <h1>{`${business?.title}`}</h1>
+                    <h1>{business?.title}</h1>
                     </div>
                     <div className='view-business-description-div'>
-                        <h2>{`${business?.description}`}</h2>
+                        <h2>{business?.description}</h2>
                     </div>
                     <div className='view-business-details-div'>
                         <h3>
-                            {`${business?.address}`}
+                            {business?.address}
                         </h3>
                         <h3>
-                            {`${business?.city}`}
+                            {business?.city}
                         </h3>
                         <h3>
-                            {`${business?.state}`}
+                            {business?.state}
                         </h3>
                         <h3>
-                            {`${business?.zipCode}`}
+                            {business?.zipCode}
                         </h3>
                     </div>
                 </div>
@@ -172,12 +185,12 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                         <button className='view-business-modal-button' onClick={() => {setShowEdit(true); setValues(); }}>✎</button>
                     </div>
                 ) : (<></>)
-                };
+                }
             </div>
             <div className='view-business-comments-div'>
                 <h1>Comments</h1>
             </div>
-        </div>
+        </div>2
     </section>)}
   </div>
     );

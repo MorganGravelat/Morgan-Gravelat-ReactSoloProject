@@ -147,7 +147,7 @@ const businessReducer = (state = initialState, action) => {
       };
     case DELETE_ONE:
       setState = {...state};
-      console.log('NOTICE ME NOTICE ME PELEASE',action.businessId)
+      //newList = setState.list
       delete setState.list[action.businessId];
       return setState;
     case ADD_ONE:
@@ -162,7 +162,13 @@ const businessReducer = (state = initialState, action) => {
     case EDIT_ONE:
         console.log('HEYEYEYE',action.editBusiness);
         setState = {...state}
-        setState.list[action.editBusiness.id] = action.editBusiness;
+        let newList = [...setState.list]
+        newList.forEach((business, index) => {
+            if (business.id === action.editBusiness.id) {
+                newList[index] = action.editBusiness;
+            }
+        })
+        setState.list = newList;
         return setState;
     default:
       return state;
