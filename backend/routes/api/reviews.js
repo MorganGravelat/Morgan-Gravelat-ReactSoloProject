@@ -12,7 +12,7 @@ router.get(
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
     console.log('FIRST',id)
-    const reviews = await Review.findAll({where: { business_id: `${id}` }}); //might need refactor to get the proper id passed
+    const reviews = await Review.findAll({where: { business_id: id }, includes: { comments }}); //might need refactor to get the proper id passed
     console.log(reviews);
     return res.json(reviews);
   })

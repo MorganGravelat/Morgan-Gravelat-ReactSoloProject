@@ -188,9 +188,9 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                 }
             </div>
             <div className='view-business-comments-div'>
-                <h1>Comments</h1>
+                {Object.values(reviews).map((review) => <h3 key={review.id}>{review.comments}</h3>)}
             </div>
-        </div>2
+        </div>
     </section>)}
   </div>
     );
