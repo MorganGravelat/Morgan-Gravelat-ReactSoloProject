@@ -1,50 +1,50 @@
-// // backend/utils/validation.js
-// const { validationResult, check } = require("express-validator");
+// backend/utils/validation.js
+const { validationResult, check } = require("express-validator");
 
-// // middleware for formatting errors from express-validator middleware
-// // (to customize, see express-validator's documentation)
-// const handleValidationErrors = (req, _res, next) => {
-//     const validationErrors = validationResult(req);
+// middleware for formatting errors from express-validator middleware
+// (to customize, see express-validator's documentation)
+const handleValidationErrors = (req, _res, next) => {
+    const validationErrors = validationResult(req);
 
-//     if (!validationErrors.isEmpty()) {
-//       const errors = validationErrors.array().map((error) => `${error.msg}`);
+    if (!validationErrors.isEmpty()) {
+      const errors = validationErrors.array().map((error) => `${error.msg}`);
 
-//       const err = Error("Bad request.");
-//       err.errors = errors;
-//       err.status = 400;
-//       err.title = "Bad request.";
-//       next(err);
-//     }
-//     next();
-// };
+      const err = Error("Bad request.");
+      err.errors = errors;
+      err.status = 400;
+      err.title = "Bad request.";
+      next(err);
+    }
+    next();
+};
 
-// const validateLogin = [
-//     check("credential")
-//       .exists({ checkFalsy: true })
-//       .notEmpty()
-//       .withMessage("you must enter a username and email"),
-//     check("password")
-//       .exists({ checkFalsy: true })
-//       .withMessage("you must enter a password"),
-//     handleValidationErrors,
-// ];
+const validateLogin = [
+    check("credential")
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage("you must enter a username and email"),
+    check("password")
+      .exists({ checkFalsy: true })
+      .withMessage("you must enter a password"),
+    handleValidationErrors,
+];
 
-// const validateSignup = [
-//     check("username")
-//       .exists({ checkFalsy: true })
-//       .isLength({ min: 3 })
-//       .withMessage("Your username must have at least 3 characters"),
-//     check("email")
-//       .exists({ checkFalsy: true })
-//       .isEmail()
-//       .withMessage("You must provide a valid email"),
-//     check("username").not().isEmail().withMessage("You must enter a username seperate from your email"),
-//     check("password")
-//       .exists({ checkFalsy: true })
-//       .isLength({ min: 5 })
-//       .withMessage("password must be 5 characters or more"),
-//     handleValidationErrors,
-// ];
+const validateSignup = [
+    check("username")
+      .exists({ checkFalsy: true })
+      .isLength({ min: 3 })
+      .withMessage("Your username must have at least 3 characters"),
+    check("email")
+      .exists({ checkFalsy: true })
+      .isEmail()
+      .withMessage("You must provide a valid email"),
+    check("username").not().isEmail().withMessage("You must enter a username seperate from your email"),
+    check("password")
+      .exists({ checkFalsy: true })
+      .isLength({ min: 5 })
+      .withMessage("password must be 5 characters or more"),
+    handleValidationErrors,
+];
 
 // const validateBusiness = [
 //     check('title')
@@ -111,11 +111,8 @@
 //     handleValidationErrors
 // ];
 
-// module.exports = {
-//   handleValidationErrors,
-//   validateLogin,
-//   validateSignup,
-//   validateBusiness,
-//   validateBusinessEdit,
-//   validateReview,
-// };
+module.exports = {
+  handleValidationErrors,
+  validateLogin,
+  validateSignup,
+};

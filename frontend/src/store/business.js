@@ -156,7 +156,7 @@ const businessReducer = (state = initialState, action) => {
     case DELETE_ONE:
       setState = {...state};
       let deleteList = [...setState.list];
-      deleteList = arrayFixer(newList)
+      deleteList = arrayFixer(deleteList)
       let ind;
       console.log(deleteList);
       deleteList.forEach((business, index) => {
@@ -164,7 +164,8 @@ const businessReducer = (state = initialState, action) => {
               ind = index;
           }
       })
-      delete setState.list[ind];
+      delete deleteList[ind];
+      setState.list = deleteList
       return setState;
     case ADD_ONE:
       setState = {...state}

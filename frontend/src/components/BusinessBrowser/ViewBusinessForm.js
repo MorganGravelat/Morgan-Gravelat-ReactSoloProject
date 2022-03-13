@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { deleteBusiness, editBusiness } from "../../store/business";
-import { getReviews, DeleteReview } from "../../store/review";
+import { getReviews, DeleteReview, createReview } from "../../store/review";
 import './BusinessBrowser.css';
 
 
@@ -67,16 +67,28 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         await dispatch(deleteBusiness(business.id));
         hideForm();
     }
-
-    const deleteReview = async (reviewId) => {
-        await dispatch(DeleteReview(reviewId))
+    const reviewDeletion = async (id) => {
+        await dispatch(DeleteReview(id));
     }
 
+    const reviewSubmit = async (e) => {
+        e.preventDefault();
+        let user_id = owner_id;
+        let business_id = business.id;
+        let comments = comment;
+        const review = {
+            user_id,
+            business_id,
+            rating,
+            comments,
+          };
+
+        await dispatch(createReview(review));
+    }
     const handleSubmit = async (e) => {
       e.preventDefault();
 
       const Business = {
-        id,
         owner_id,
         title,
         description,
@@ -99,8 +111,6 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
       await dispatch(editBusiness(Business));
 
       setShowEdit(false);
-
-
 
     };
 
@@ -206,13 +216,15 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                         <h3 className="review-comment-h3">{review.comments}</h3>
                         <h5 className="review-rating-h5">{review.rating}</h5>
                     </div>
-                    <button className='comment-edit-button'>DELETE ⇈</button>
+                    {owner_id===review.user_id ?
+                    (<button onClick={reviewDeletion(review.id)} className='comment-edit-button'>DELETE ⇈</button>) :
+                    (<></>)}
                 </>
                 )
                 )}
                 </div>
                 <section className="new-form-holder centered middled">
-                <form className="edit-Business-form" onSubmit={handleSubmit}>
+                <form className="write-review-form" onSubmit={reviewSubmit}>
                     <input
                     type="text"
                     placeholder="Write out a Review"
@@ -231,6 +243,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                         <option>2</option>
                         <option>1</option>
                     </select>
+                    <button type='submit' className="create-new-business-button">Write Review</button>
                 </form>
                 </section>
             </div>
