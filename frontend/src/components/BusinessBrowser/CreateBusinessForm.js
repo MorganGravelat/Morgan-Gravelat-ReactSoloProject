@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBusinessTypes, createBusiness } from "../../store/business";
 import { ValidationError } from '../../utils/validationError';
 import ErrorMessage from './ErrorMessage';
+import './BusinessBrowser.css';
 
 const CreateBusinessForm = ({ hideForm }) => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const CreateBusinessForm = ({ hideForm }) => {
   const [typeId, setTypeId] = useState(businessTypes[0])
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [image_url, setimage_url] = useState("");
+  const [image_url, setimage_url] = useState('');
   const [errorMessages, setErrorMessages] = useState({});
 
   const updateTitle = (e) => setTitle(e.target.value);
@@ -36,7 +37,6 @@ const CreateBusinessForm = ({ hideForm }) => {
     //         }
     //     }
     // }
-let type_id = type?.id
 
   useEffect(() => {
     dispatch(getBusinessTypes());
@@ -50,7 +50,7 @@ let type_id = type?.id
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    let type_id = 1;
     const payload = {
       owner_id,
       title,
@@ -62,8 +62,10 @@ let type_id = type?.id
       zipCode,
       image_url,
     };
-
+    console.log(payload);
     const createdBusiness = await dispatch(createBusiness(payload));
+
+    hideForm();
 
     // let createdBusiness;
     // try {
@@ -80,8 +82,7 @@ let type_id = type?.id
   };
   return (
     <section className="new-form-holder centered middled">
-      <ErrorMessage message={errorMessages.overall} />
-      <form className="create-Business-form" onSubmit={handleSubmit}>
+      <form className="create-business-form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Title"
@@ -89,7 +90,6 @@ let type_id = type?.id
           value={title}
           onChange={updateTitle}
         />
-        <ErrorMessage label={"Title"} message={errorMessages.title} />
         <input
           type="text"
           placeholder="Description"
@@ -127,12 +127,7 @@ let type_id = type?.id
           value={image_url}
           onChange={updateImageUrl}
         />
-        <select value={type} onChange={updateType}>
-          {businessTypes.map(business_type =>
-          <option key={business_type.business_type}>{business_type.business_type}</option>
-            )}
-        </select>
-        <button type="submit">Create new Business</button>
+        <button className="create-new-business-button" type="submit">Create new Business</button>
       </form>
     </section>
   );

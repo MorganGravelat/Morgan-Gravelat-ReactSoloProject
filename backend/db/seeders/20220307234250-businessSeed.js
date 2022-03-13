@@ -59,7 +59,7 @@ module.exports = {
         },
         {
             owner_id: 1,
-            title: "Hilten Garden Inn",
+            title: "Hilton Garden Inn",
             description: "A 1-minute drive from State Highway 50, this modern hotel is a 2.4-mile [drive/walk] from the University of central Florida. There's a 24/7 market, in addition to the cooked-to-order breakfast (fee) and casual on-site restaurant with cocktail service.",
             address: "1959 N Alafaya Trail",
             city: "Orlando",

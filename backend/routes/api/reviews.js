@@ -3,7 +3,6 @@ const asyncHandler = require("express-async-handler");
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
 const { requireAuth } = require("../../utils/auth");
-const { validateReview } = require("../../utils/validation");
 const { Review } = require("../../db/models");
 
 const router = express.Router();
@@ -22,7 +21,6 @@ router.get(
 router.post(
     "/create",
     requireAuth,
-    validateReview,
     asyncHandler(async (req, res) => {
         const newReview = await Review.create(req.body);
 

@@ -7,7 +7,7 @@ const CreateBusinessForm = ({ hideForm }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const businessTypes = useSelector((state) => state.business.types);
-  const owner_id = useSelector((state) => state.session.user.id)
+  const owner_id = useSelector((state) => state.session.user.id);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");

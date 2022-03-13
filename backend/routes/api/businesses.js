@@ -5,7 +5,6 @@ const csrfProtection = csrf({ cookie: true });
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 
 const { Business, Review } = require("../../db/models");
-const { validateBusiness, validateBusinessEdit } = require("../../utils/validation");
 
 const router = express.Router();
 
@@ -29,7 +28,6 @@ router.get(
 router.post(
     "/create",
     requireAuth,
-    validateBusiness,
     asyncHandler(async (req, res) => {
         const newBusiness = await Business.create(req.body);
 
@@ -57,7 +55,6 @@ router.post(
   router.put(
       '/edit/:id',
       requireAuth,
-      validateBusinessEdit,
       asyncHandler(async (req, res) => {
           const id = parseInt(req.params.id);
           const business = await Business.findByPk(id);

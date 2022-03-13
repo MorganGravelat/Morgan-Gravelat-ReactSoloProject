@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getBusinessTypes, deleteBusiness, editBusiness } from "../../store/business";
 import { getReviews } from "../../store/review";
+import './BusinessBrowser.css';
 
 
 const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
@@ -14,7 +15,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const reviews = useSelector((state) => state.reviews.allReviews)
     const [viewOne, setViewOne] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
-    const [id, setId] = useState(business.id)
+    const [id, setId] = useState(business.id);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [address, setAddress] = useState("");
@@ -24,6 +25,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const [zipCode, setZipCode] = useState("");
     const [image_url, setimageurl] = useState("");
     const [comment, setComment] = useState('');
+    const [rating, setRating] = useState(10);
     const updateTitle = (e) => setTitle(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
     const updateAddress = (e) => setAddress(e.target.value);
@@ -33,6 +35,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const updateZipCode = (e) => setZipCode(e.target.value);
     const updateImageUrl = (e) => setimageurl(e.target.value);
     const updateComment = (e) => setComment(e.target.value);
+    const updateRating = (e) => setRating(e.target.value);
     const businessType = useSelector((state) => {
         return state.business?.types[business?.type_id-1]
     });
@@ -57,11 +60,18 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
 
     useEffect(() => {
         (async () => {
-            dispatch(getBusinessTypes());
-            dispatch(getReviews(business.id));
+            await dispatch(getBusinessTypes());
+            await dispatch(getReviews(business.id));
         })();
     }, [dispatch]);
+    const deletionButton = async () => {
+        await dispatch(deleteBusiness(business.id));
+        hideForm();
+    }
 
+    const deleteReview = async (reviewId) => {
+        await dispatch(DeleteReview(reviewId))
+    }
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -149,19 +159,19 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
             <option key={business_type.business_type}>{business_type.business_type}</option>
               )}
           </select>
-          <button type="submit">Finalize Edit</button>
+          <button className='create-new-business-button' type="submit">Finalize Edit</button>
         </form>
       </section>
     ) : (
-    <section className="form-holder centered middled">
-        <div>
+    <section className="form-holder centered middled view-business-display-section">
+        <div className="view-business-display-div">
             <div className="view-business-container-div">
                 <div className="view-business-image-div">
                     <img className='view-business-img' src={`${business?.image_url}`}/>
                 </div>
                 <div className="view-business-info-div">
                     <div className='view-business-title-div'>
-                    <h1>{business?.title}</h1>
+                    <h1 className='business-info-title'>{business?.title}</h1>
                     </div>
                     <div className='view-business-description-div'>
                         <h2>{business?.description}</h2>
@@ -181,17 +191,26 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                         </h3>
                     </div>
                 </div>
-                {owner_id ? (
-                    <div>
-                        <button className='view-business-modal-button' onClick={() => dispatch(deleteBusiness(business.id))}>❌</button>
-                        <button className='view-business-modal-button' onClick={() => {setShowEdit(true); setValues(); }}>✎</button>
+                {owner_id===business.owner_id ? (
+                    <div className="view-business-button-div">
+                        <button className='view-business-modal-button' onClick={deletionButton}>DELETE</button>
+                        <button className='view-business-modal-button' onClick={() => {setShowEdit(true); setValues(); }}>EDIT</button>
                     </div>
                 ) : (<></>)
                 }
             </div>
             <div className='view-business-comments-div'>
                 <div className='written-comments-div'>
-                {Object.values(reviews).map((review) => (<div className='comments-section-div'><h3 key={review.id}>{review.comments}</h3></div>))}
+                {Object.values(reviews).map((review) =>
+                (<>
+                    <div className='comments-section-div' key={review.id}>
+                        <h3 className="review-comment-h3">{review.comments}</h3>
+                        <h5 className="review-rating-h5">{review.rating}</h5>
+                    </div>
+                    <button onClick={editComment(review.id)}className='comment-edit-button'>DELETE ⇈</button>
+                </>
+                )
+                )}
                 </div>
                 <section className="new-form-holder centered middled">
                 <form className="edit-Business-form" onSubmit={handleSubmit}>
@@ -201,6 +220,18 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                     value={comment}
                     onChange={updateComment}
                     />
+                    <select value={rating} onChange={updateRating}>
+                        <option>10</option>
+                        <option>9</option>
+                        <option>8</option>
+                        <option>7</option>
+                        <option>6</option>
+                        <option>5</option>
+                        <option>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                    </select>
                 </form>
                 </section>
             </div>

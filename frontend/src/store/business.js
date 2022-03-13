@@ -121,7 +121,15 @@ export const createBusiness = (business) => async (dispatch) => {
     return business;
   }
 };
-
+function arrayFixer(list) {
+    let newArray=[];
+    list.forEach((ele, index) => {
+        if (typeof ele === 'object') {
+            newArray.push(ele);
+        }
+    });
+    return newArray;
+}
 const initialState = {
   list: [],
   types: [],
@@ -147,8 +155,16 @@ const businessReducer = (state = initialState, action) => {
       };
     case DELETE_ONE:
       setState = {...state};
-      //newList = setState.list
-      delete setState.list[action.businessId];
+      let deleteList = [...setState.list];
+      deleteList = arrayFixer(newList)
+      let ind;
+      console.log(deleteList);
+      deleteList.forEach((business, index) => {
+          if (business.id === action.businessId) {
+              ind = index;
+          }
+      })
+      delete setState.list[ind];
       return setState;
     case ADD_ONE:
       setState = {...state}
@@ -160,9 +176,9 @@ const businessReducer = (state = initialState, action) => {
           currentBusiness: action.business,
       };
     case EDIT_ONE:
-        console.log('HEYEYEYE',action.editBusiness);
         setState = {...state}
         let newList = [...setState.list]
+        newList = arrayFixer(newList)
         newList.forEach((business, index) => {
             if (business.id === action.editBusiness.id) {
                 newList[index] = action.editBusiness;

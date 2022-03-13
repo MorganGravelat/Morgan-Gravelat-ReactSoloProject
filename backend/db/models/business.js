@@ -36,11 +36,7 @@ module.exports = (queryInterface, Sequelize) => {
         }
       },
       type_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
-        validate: {
-            notEmpty: true
-        }
       },
       state: {
         allowNull: false,
