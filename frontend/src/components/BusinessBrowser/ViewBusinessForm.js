@@ -68,7 +68,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         hideForm();
     }
     const reviewDeletion = async (id) => {
-        await dispatch(DeleteReview(id));
+        dispatch(DeleteReview(id));
     }
 
     const reviewSubmit = async (e) => {
