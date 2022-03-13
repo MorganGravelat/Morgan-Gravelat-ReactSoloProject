@@ -22,18 +22,10 @@ module.exports = (queryInterface, Sequelize) => {
       address: {
         allowNull: false,
         type: Sequelize.STRING(50),
-        validate: {
-            max: 50,
-            notEmpty: true
-        }
       },
       city: {
         allowNull: false,
         type: Sequelize.STRING(85),
-        validate: {
-          max: 85,
-          notEmpty: true
-        }
       },
       type_id: {
         type: Sequelize.INTEGER,
@@ -41,10 +33,6 @@ module.exports = (queryInterface, Sequelize) => {
       state: {
         allowNull: false,
         type: Sequelize.STRING(50),
-        validate: {
-          max: 50,
-          notEmpty: true
-        },
       },
       zipCode: {
         allowNull: false,

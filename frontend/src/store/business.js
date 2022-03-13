@@ -93,8 +93,8 @@ export const getBusinessTypes = (business) => async (dispatch) => {
 export const chooseBusiness = business => async dispatch => {
             dispatch(selectBusiness(business));
     }
-export const editBusiness = (business) => async (dispatch) => {
-    const response = await csrfFetch(`/api/business/edit/${business.id}`, {
+export const editBusiness = (business, id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/business/edit/${id}`, {
         method: "PUT",
         body: JSON.stringify(business)
     });
@@ -121,19 +121,11 @@ export const createBusiness = (business) => async (dispatch) => {
     return business;
   }
 };
-function arrayFixer(list) {
-    let newArray=[];
-    list.forEach((ele, index) => {
-        if (typeof ele === 'object') {
-            newArray.push(ele);
-        }
-    });
-    return newArray;
-}
+
 const initialState = {
-  list: [],
-  types: [],
-  selectedBusiness: '',
+  list: {},
+  types: {},
+  selectedBusiness: {},
 };
 
 const businessReducer = (state = initialState, action) => {
@@ -146,7 +138,7 @@ const businessReducer = (state = initialState, action) => {
       });
       return {
         ...state,
-        list: action.list,
+        list: allBusinesses,
       };
     case LOAD_TYPES:
       return {
@@ -155,17 +147,7 @@ const businessReducer = (state = initialState, action) => {
       };
     case DELETE_ONE:
       setState = {...state};
-      let deleteList = [...setState.list];
-      deleteList = arrayFixer(deleteList)
-      let ind;
-      console.log(deleteList);
-      deleteList.forEach((business, index) => {
-          if (business.id === action.businessId) {
-              ind = index;
-          }
-      })
-      delete deleteList[ind];
-      setState.list = deleteList
+      delete setState.list[action.businessId];
       return setState;
     case ADD_ONE:
       setState = {...state}
@@ -178,14 +160,8 @@ const businessReducer = (state = initialState, action) => {
       };
     case EDIT_ONE:
         setState = {...state}
-        let newList = [...setState.list]
-        newList = arrayFixer(newList)
-        newList.forEach((business, index) => {
-            if (business.id === action.editBusiness.id) {
-                newList[index] = action.editBusiness;
-            }
-        });
-        setState.list = newList;
+        let ele = action.editBusiness
+        setState.list[ele.id] = ele
         return setState;
     default:
       return state;

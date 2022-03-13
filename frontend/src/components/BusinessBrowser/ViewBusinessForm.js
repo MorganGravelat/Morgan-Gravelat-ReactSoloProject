@@ -60,12 +60,16 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
             dispatch(getReviews(business.id));
         })();
     }, [dispatch]);
+    const reviewUpdate = async () => {
+        await dispatch(getReviews(business.id))
+    }
     const deletionButton = async () => {
-        await dispatch(deleteBusiness(business.id));
+        await dispatch(deleteBusiness(business.id))
         hideForm();
     }
     const reviewDeletion = async (id) => {
         await dispatch(DeleteReview(id));
+        await dispatch(getReviews(business.id));
     }
 
     const reviewSubmit = async (e) => {
@@ -81,6 +85,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
           };
 
         await dispatch(createReview(review));
+        await dispatch(getReviews(business.id));
     }
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -105,7 +110,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
       business.zipCode = zipCode
       business.image_url = image_url
 
-      await dispatch(editBusiness(Business));
+      await dispatch(editBusiness(Business, business.id));
 
       setShowEdit(false);
 
@@ -160,11 +165,6 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
             value={image_url}
             onChange={updateImageUrl}
           />
-          <select value={type} onChange={updateType}>
-            {businessTypes.map(business_type =>
-            <option key={business_type.business_type}>{business_type.business_type}</option>
-              )}
-          </select>
           <button className='create-new-business-button' type="submit">Finalize Edit</button>
         </form>
       </section>
@@ -214,7 +214,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                         <h5 className="review-rating-h5">{review.rating}</h5>
                     </div>
                     {owner_id===review.user_id ?
-                    (<button onClick={reviewDeletion(review.id)} className='comment-edit-button'>DELETE ⇈</button>) :
+                    (<button onClick={()=>reviewDeletion(review.id)} className='comment-edit-button'>DELETE ⇈</button>) :
                     (<></>)}
                 </>
                 )
@@ -249,5 +249,9 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
   </div>
     );
 };
+
+ /*{ {reviews.map(business_type =>
+                    <option key={business_type.business_type}>{business_type.business_type}</option>
+                )} }*/
 
 export default ViewBusinessForm;

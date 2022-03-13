@@ -7,7 +7,6 @@ import './BusinessBrowser.css';
 
 const CreateBusinessForm = ({ hideForm }) => {
   const dispatch = useDispatch();
-  const businessTypes = useSelector((state) => state.business.types);
   const owner_id = useSelector((state) => state.session.user.id)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

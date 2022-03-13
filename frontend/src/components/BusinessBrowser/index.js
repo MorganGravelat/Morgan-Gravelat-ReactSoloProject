@@ -20,6 +20,7 @@ const BusinessBrowser = () => {
     const currentBusiness = useSelector(state => state.business.selectedBusiness);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
+    const businessKeys = Object.keys(allBusinesses);
    // const [showBusinessForm, setShowBusinessForm] = useState(false);
 
    function handleClick(business) {
@@ -41,14 +42,14 @@ const BusinessBrowser = () => {
         <div>
             <div className='business-box'>
                 <BonusButton hidden={showModal} onClick={() => setShowModal(true)} />
-                {allBusinesses.map(business => (
-                        <div key={business.title} className="business-select">
+                {businessKeys.map(key => (
+                        <div key={allBusinesses[key].id} className="business-select">
                           <div
                             id='business-container-div'
                           >
-                            <img onClick={() => {dispatch(selectBusiness(business)); setShowModal2(true)}} src={`${business.image_url}`} className='nav-entry-image'/>
+                            <img onClick={() => {dispatch(selectBusiness(allBusinesses[key])); setShowModal2(true)}} src={`${allBusinesses[key].image_url}`} className='nav-entry-image'/>
                             <div onClick={() => {setShowModal2(true)}}>
-                              <div className='primary-text'>{business.title}</div>
+                              <div className='primary-text'>{allBusinesses[key].title}</div>
                             </div>
                           </div>
                         </div>
