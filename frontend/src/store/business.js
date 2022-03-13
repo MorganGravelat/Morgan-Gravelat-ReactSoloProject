@@ -183,7 +183,7 @@ const businessReducer = (state = initialState, action) => {
             if (business.id === action.editBusiness.id) {
                 newList[index] = action.editBusiness;
             }
-        })
+        });
         setState.list = newList;
         return setState;
     default:

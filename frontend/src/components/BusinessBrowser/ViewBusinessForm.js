@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getBusinessTypes, deleteBusiness, editBusiness } from "../../store/business";
-import { getReviews } from "../../store/review";
+import { deleteBusiness, editBusiness } from "../../store/business";
+import { getReviews, DeleteReview } from "../../store/review";
 import './BusinessBrowser.css';
 
 
@@ -60,7 +60,6 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(getBusinessTypes());
             await dispatch(getReviews(business.id));
         })();
     }, [dispatch]);
@@ -207,7 +206,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                         <h3 className="review-comment-h3">{review.comments}</h3>
                         <h5 className="review-rating-h5">{review.rating}</h5>
                     </div>
-                    <button onClick={editComment(review.id)}className='comment-edit-button'>DELETE ⇈</button>
+                    <button className='comment-edit-button'>DELETE ⇈</button>
                 </>
                 )
                 )}

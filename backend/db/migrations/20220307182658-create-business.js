@@ -29,7 +29,6 @@ module.exports = {
         type: Sequelize.STRING(85)
       },
       type_id: {
-          allowNull: false,
           type: Sequelize.INTEGER,
           references: { model: 'Types' }
       },

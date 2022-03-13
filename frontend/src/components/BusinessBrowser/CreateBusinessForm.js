@@ -13,40 +13,24 @@ const CreateBusinessForm = ({ hideForm }) => {
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [type, setType] = useState(businessTypes[0]);
-  const [typeId, setTypeId] = useState(businessTypes[0])
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [image_url, setimage_url] = useState('');
+  const [image_url, setimage_url] = useState("");
   const [errorMessages, setErrorMessages] = useState({});
 
   const updateTitle = (e) => setTitle(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
   const updateAddress = (e) => setAddress(e.target.value);
   const updateCity = (e) => setCity(e.target.value);
-  const updateType = (e) => setType(e.target.value);
   const updateState = (e) => setState(e.target.value);
   const updateZipCode = (e) => setZipCode(e.target.value);
   const updateImageUrl = (e) => setimage_url(e.target.value);
-    // function getTypeId () {
-    //     for (let i = 0; i < businessTypes.length; i++) {
-    //         let ele = businessTypes[i];
-    //         console.log('running?',ele.business.type);
-    //         if (type == ele.business_type) {
-    //             setTypeId(ele.id);
-    //         }
-    //     }
-    // }
+
 
   useEffect(() => {
     dispatch(getBusinessTypes());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (businessTypes.length && !type) {
-      setType(businessTypes[0]);
-    }
-  }, [businessTypes, type]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
