@@ -14,7 +14,7 @@ module.exports = {
       },
       business_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'Users' }
+        references: { model: 'Businesses' }
       },
       rating: {
         type: Sequelize.INTEGER
