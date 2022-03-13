@@ -40,9 +40,6 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         return state.business?.types[business?.type_id-1]
     });
 
-    function setBusiness() {
-
-    }
     function setValues() {
         setId(parseInt(id));
         setTitle(business.title);
@@ -60,7 +57,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(getReviews(business.id));
+            dispatch(getReviews(business.id));
         })();
     }, [dispatch]);
     const deletionButton = async () => {
@@ -68,7 +65,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         hideForm();
     }
     const reviewDeletion = async (id) => {
-        dispatch(DeleteReview(id));
+        await dispatch(DeleteReview(id));
     }
 
     const reviewSubmit = async (e) => {
@@ -252,9 +249,5 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
   </div>
     );
 };
-
- /*{ {reviews.map(business_type =>
-                    <option key={business_type.business_type}>{business_type.business_type}</option>
-                )} }*/
 
 export default ViewBusinessForm;

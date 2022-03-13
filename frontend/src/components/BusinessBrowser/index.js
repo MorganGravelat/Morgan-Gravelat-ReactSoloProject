@@ -47,7 +47,7 @@ const BusinessBrowser = () => {
                             id='business-container-div'
                           >
                             <img onClick={() => {dispatch(selectBusiness(business)); setShowModal2(true)}} src={`${business.image_url}`} className='nav-entry-image'/>
-                            <div onClick={() => {dispatch(selectBusiness(business)); setShowModal2(true)}}>
+                            <div onClick={() => {setShowModal2(true)}}>
                               <div className='primary-text'>{business.title}</div>
                             </div>
                           </div>
