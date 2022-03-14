@@ -1,6 +1,5 @@
 // frontend/src/components/Navigation/index.js
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as sessionActions from "../../store/session";
 import ProfileButton from './ProfileButton';
@@ -37,6 +36,7 @@ function Navigation({ isLoaded }){
         <div className='login-signup-navbar-div'>
         {isLoaded && sessionLinks}
         </div>
+        <img className='yep-yup-logo' src="https://drive.google.com/uc?id=19uGJseAOxtRpd5JeDKhhHnnQN_Pf5-35" alt='the logo for yep yup' />
     </div>
   );
 }

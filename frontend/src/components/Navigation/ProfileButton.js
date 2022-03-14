@@ -38,13 +38,13 @@ function ProfileButton({ user }) {
         </button>
         {showModal && (
             <Modal onClose={() => setShowModal(false)}>
-                <ul className="profile-dropdown">
-                  <li>{user.username}</li>
-                  <li>{user.email}</li>
-                  <li>
+                <div className="profile-dropdown">
+                  <h1>{user.username}</h1>
+                  <h2>{user.email}</h2>
+                  <div className="profile-dropdown-logout-div">
                     <button onClick={logout} className="profile-dropdown-logout-button">Log Out</button>
-                  </li>
-                </ul>
+                  </div>
+                </div>
             </Modal>
         )}
     </>

@@ -41,7 +41,7 @@ module.exports = (queryInterface, Sequelize) => {
       image_url: {
         allowNull: false,
         type: Sequelize.TEXT,
-        defaultValue: 'https://drive.google.com/uc?id=1-Rsq_JT6eBrQfmPyWfKTVvxxkYI1GzGY',
+        defaultValue: 'https://drive.google.com/uc?id=19uGJseAOxtRpd5JeDKhhHnnQN_Pf5-35',
       },
   }, {});
   Business.associate = function(models) {

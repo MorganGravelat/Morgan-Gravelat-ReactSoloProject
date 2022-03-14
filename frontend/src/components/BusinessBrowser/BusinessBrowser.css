@@ -154,8 +154,9 @@
     text-decoration: none;
     color: rgb(39, 0, 0);
     font-size: large;
-    background-color: rgb(206, 121, 121);
+    background-color: rgb(211, 161, 161);
     border-radius: 10%;
+    margin-bottom: 5px;
 }
 
 .comments-section-div {
@@ -204,7 +205,7 @@
 }
 body {
     background-color: rgb(138, 64, 64);
-    background-image: url('https://img.freepik.com/free-photo/card-soft-template-paper-report_1258-167.jpg?t=st=1646772943~exp=1646773543~hmac=47c37d8703d26e4c7a3e4a2659185ede540cf9fe42e838e1669e479c2ff3fdb4&w=2000');
+    background-image: url('https://images.unsplash.com/photo-1557682257-2f9c37a3a5f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=564&q=80');
     background-repeat: no-repeat;
     background-size: cover;
     height: auto;

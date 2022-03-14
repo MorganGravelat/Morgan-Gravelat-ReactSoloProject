@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { deleteBusiness, editBusiness } from "../../store/business";
 import { getReviews, DeleteReview, createReview } from "../../store/review";
+import { allUsers } from "../../store/session";
 import './BusinessBrowser.css';
 
 
@@ -12,8 +12,8 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const grabBusiness = useSelector((state) => state.business?.currentBusiness)
     let business = grabBusiness
     owner_id = useSelector((state) => state.session.user?.id)
+    let users = useSelector((state) => state.session.users)
     const reviews = useSelector((state) => state.reviews.allReviews)
-    const [viewOne, setViewOne] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [id, setId] = useState(business.id);
     const [title, setTitle] = useState("");
@@ -30,12 +30,21 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const updateDescription = (e) => setDescription(e.target.value);
     const updateAddress = (e) => setAddress(e.target.value);
     const updateCity = (e) => setCity(e.target.value);
-    const updateType = (e) => setType(e.target.value);
     const updateState = (e) => setState(e.target.value);
     const updateZipCode = (e) => setZipCode(e.target.value);
     const updateImageUrl = (e) => setimageurl(e.target.value);
     const updateComment = (e) => setComment(e.target.value);
     const updateRating = (e) => setRating(e.target.value);
+    let userKeys = Object.keys(users)
+    function findOwner(id) {
+        let username;
+        for (let i = 0; i < userKeys.length; i++) {
+            let key = userKeys[i];
+            if (users[key].id === id) username = users[key].username;
+        }
+        return username;
+    }
+
     const businessType = useSelector((state) => {
         return state.business?.types[business?.type_id-1]
     });
@@ -57,9 +66,12 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
 
     useEffect(() => {
         (async () => {
-            dispatch(getReviews(business.id));
+            await dispatch(getReviews(business.id));
+            await dispatch(allUsers());
         })();
     }, [dispatch]);
+
+
     const reviewUpdate = async () => {
         await dispatch(getReviews(business.id))
     }
@@ -75,7 +87,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     const reviewSubmit = async (e) => {
         e.preventDefault();
         let user_id = owner_id;
-        let business_id = business.id;
+        let business_id = parseInt(grabBusiness.id);
         let comments = comment;
         const review = {
             user_id,
@@ -144,24 +156,28 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
           <input
             type="text"
             placeholder="City"
+            required
             value={city}
             onChange={updateCity}
           />
           <input
             type="text"
             placeholder="State"
+            required
             value={state}
             onChange={updateState}
           />
           <input
             type="text"
             placeholder="Zip Code"
+            required
             value={zipCode}
             onChange={updateZipCode}
           />
           <input
             type="text"
             placeholder="Image Address"
+            required
             value={image_url}
             onChange={updateImageUrl}
           />
@@ -173,7 +189,7 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
         <div className="view-business-display-div">
             <div className="view-business-container-div">
                 <div className="view-business-image-div">
-                    <img className='view-business-img' src={`${business?.image_url}`}/>
+                    <img className='view-business-img' src={`${business?.image_url}`} alt='The front of the business'/>
                 </div>
                 <div className="view-business-info-div">
                     <div className='view-business-title-div'>
@@ -209,12 +225,13 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
                 <div className='written-comments-div'>
                 {Object.values(reviews).map((review) =>
                 (<>
-                    <div className='comments-section-div' key={review.id}>
-                        <h3 className="review-comment-h3">{review.comments}</h3>
-                        <h5 className="review-rating-h5">{review.rating}</h5>
+                    <div className='comments-section-div' key={`div${review.id}`}>
+                        <h3 className="review-comment-h3" key={`h3${review.id}`}>{review.comments}</h3>
+                        <h5 className="review-rating-h5" key={`h5{review.id}`}>Rating:{review.rating}</h5>
+                        <h2 key={`h2{review.id}`}>{findOwner(review.user_id)}</h2>
                     </div>
                     {owner_id===review.user_id ?
-                    (<button onClick={()=>reviewDeletion(review.id)} className='comment-edit-button'>DELETE ⇈</button>) :
+                    (<button onClick={()=>reviewDeletion(review.id)} className='comment-edit-button' key={`button${review.id}`}>DELETE ⇈</button>) :
                     (<></>)}
                 </>
                 )
@@ -250,8 +267,5 @@ const ViewBusinessForm = ({ hideForm, allBusinesses }) => {
     );
 };
 
- /*{ {reviews.map(business_type =>
-                    <option key={business_type.business_type}>{business_type.business_type}</option>
-                )} }*/
 
 export default ViewBusinessForm;

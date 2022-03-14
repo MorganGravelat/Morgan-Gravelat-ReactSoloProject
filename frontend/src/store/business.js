@@ -101,7 +101,6 @@ export const editBusiness = (business, id) => async (dispatch) => {
 
     if (response.ok) {
         const editBusiness = await response.json();
-        console.log('NOTICE', editBusiness)
         dispatch(editOne(editBusiness));
         return;
     }

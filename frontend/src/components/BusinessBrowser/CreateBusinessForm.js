@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessTypes, createBusiness } from "../../store/business";
-import { ValidationError } from '../../utils/validationError';
-import ErrorMessage from './ErrorMessage';
 import './BusinessBrowser.css';
 
 const CreateBusinessForm = ({ hideForm }) => {
@@ -15,7 +13,6 @@ const CreateBusinessForm = ({ hideForm }) => {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [image_url, setimage_url] = useState("");
-  const [errorMessages, setErrorMessages] = useState({});
 
   const updateTitle = (e) => setTitle(e.target.value);
   const updateDescription = (e) => setDescription(e.target.value);
@@ -45,7 +42,6 @@ const CreateBusinessForm = ({ hideForm }) => {
       zipCode,
       image_url,
     };
-    console.log(payload);
     const createdBusiness = await dispatch(createBusiness(payload));
 
     hideForm();
@@ -89,24 +85,28 @@ const CreateBusinessForm = ({ hideForm }) => {
         <input
           type="text"
           placeholder="City"
+          required
           value={city}
           onChange={updateCity}
         />
         <input
           type="text"
           placeholder="State"
+          required
           value={state}
           onChange={updateState}
         />
         <input
           type="text"
           placeholder="Zip Code"
+          required
           value={zipCode}
           onChange={updateZipCode}
         />
         <input
           type="text"
           placeholder="Image Address"
+          required
           value={image_url}
           onChange={updateImageUrl}
         />
