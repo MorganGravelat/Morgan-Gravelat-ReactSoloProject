@@ -61,7 +61,7 @@ export const login = (user) => async (dispatch) => {
   return response;
 };
 
-export const allUsers = () => async (dispatch) => {
+export const allUsers = () => async (dispatch) => { //all users state added to session for user in comments username
     const response = await fetch('/api/users/all');
     const users = await response.json();
     dispatch(allUser(users));

@@ -64,7 +64,7 @@ export const deleteBusiness = id => async (dispatch) => {
 }
 
 
-export const getBusinesses = () => async (dispatch) => {
+export const getBusinesses = () => async (dispatch) => { // getting all businesses from backend
   const response = await fetch(`/api/business`);
   if (response.ok) {
     const list = await response.json();
@@ -73,7 +73,7 @@ export const getBusinesses = () => async (dispatch) => {
   }
 };
 
-export const getBusinessTypes = (business) => async (dispatch) => {
+export const getBusinessTypes = (business) => async (dispatch) => { //getting business types
     const response = await fetch(`/api/type`)
     if (response.ok) {
         const types = await response.json();
@@ -82,18 +82,10 @@ export const getBusinessTypes = (business) => async (dispatch) => {
     }
 }
 
-// export const chooseBusiness = id => async dispatch => {
-//     const response = await fetch(`/api/songs/${id}`)
-//     if (response.ok) {
-//         const business = await response.json();
-//         dispatch(selectBusiness(business));
-//         return business
-//     }
-// }
-export const chooseBusiness = business => async dispatch => {
+export const chooseBusiness = business => async dispatch => { // choosing the currently selected business for view business population
             dispatch(selectBusiness(business));
     }
-export const editBusiness = (business, id) => async (dispatch) => {
+export const editBusiness = (business, id) => async (dispatch) => { //editing the currently selected business
     const response = await csrfFetch(`/api/business/edit/${id}`, {
         method: "PUT",
         body: JSON.stringify(business)
@@ -106,7 +98,7 @@ export const editBusiness = (business, id) => async (dispatch) => {
     }
 }
 
-export const createBusiness = (business) => async (dispatch) => {
+export const createBusiness = (business) => async (dispatch) => { //creating a new business
   const response = await csrfFetch(`/api/business/create`, {
     method: "post",
     headers: {
@@ -127,7 +119,7 @@ const initialState = {
   selectedBusiness: {},
 };
 
-const businessReducer = (state = initialState, action) => {
+const businessReducer = (state = initialState, action) => { //the reducer for businesses state.
     let setState;
   switch (action.type) {
     case LOAD:

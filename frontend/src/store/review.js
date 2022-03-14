@@ -20,7 +20,7 @@ const deleteOne = id => ({
     id,
 })
 
-export const DeleteReview = id => async (dispatch) => {
+export const DeleteReview = id => async (dispatch) => { // Deleting a review
     const response = await csrfFetch(`/api/review/delete/${id}`, {
         method: "DELETE",
     });
@@ -32,7 +32,7 @@ export const DeleteReview = id => async (dispatch) => {
 }
 
 
-export const getReviews = (id) => async (dispatch) => {
+export const getReviews = (id) => async (dispatch) => { // getting a new review
   const response = await fetch(`/api/review/${id}`);
   if (response.ok) {
     const review = await response.json();
@@ -41,7 +41,7 @@ export const getReviews = (id) => async (dispatch) => {
   }
 };
 
-export const createReview = (review) => async (dispatch) => {
+export const createReview = (review) => async (dispatch) => { //creating a new review
     const response = await csrfFetch(`/api/review/create`, {
       method: "post",
       headers: {
@@ -62,7 +62,7 @@ const initialState = {
   allReviews: {},
 };
 
-const reviewReducer = (state = initialState, action) => {
+const reviewReducer = (state = initialState, action) => { //The reducer for the review state
     let setState;
   switch (action.type) {
     case LOAD:
