@@ -5,6 +5,7 @@ import * as sessionActions from "../../store/session";
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import AboutMeModal from '../About';
 import './Navigation.css';
 //<NavLink exact to="/" className="navbar-home-button" id="home-button-navbar">Home</NavLink>
 //above removed from above {isLoaded && sessionLinks}
@@ -36,6 +37,7 @@ function Navigation({ isLoaded }){
         <div className='login-signup-navbar-div'>
         {isLoaded && sessionLinks}
         </div>
+        <AboutMeModal />
         <img className='yep-yup-logo' src="https://drive.google.com/uc?id=19uGJseAOxtRpd5JeDKhhHnnQN_Pf5-35" alt='the logo for yep yup' />
     </div>
   );
