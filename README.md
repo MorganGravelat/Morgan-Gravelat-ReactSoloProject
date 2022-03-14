@@ -60,6 +60,6 @@ npm start
 7. If the server does not open automatically, navigate to http://localhost:3000 and use the demo user or make an account if you'd like.
 
 # Features
-A logged in user can do the following things
-Add/View/Edit/Delete Businesses
-Add/View/Delete Comments
+### A logged in user can do the following things
+* Add/View/Edit/Delete Businesses
+* Add/View/Delete Comments
