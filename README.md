@@ -1,4 +1,5 @@
-# YEP!YUP?
+![LOGO2](https://user-images.githubusercontent.com/32913497/158123555-0e5492aa-81aa-45f8-8705-2ded54aad972.png)
+
 YepYup is a [Yelp](https://www.yelp.com/) clone that is Yelp on one page. It is a place for all businesses to be posted and advertised based off your local area. Users may sign up and post their business, comment on said business, and give it a rating.
 
 ## TABLE OF CONTENTS
