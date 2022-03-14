@@ -2,8 +2,8 @@
 YepYup is a [Yelp](https://www.yelp.com/) clone that is Yelp on one page. It is a place for all businesses to be posted and advertised based off your local area. Users may sign up and post their business, comment on said business, and give it a rating.
 
 ##TABLE OF CONTENTS
-[Database Schema](https://github.com/MorganGravelat/Morgan-Gravelat-YepYup/wiki/Database-Schema)
-[MVP Features](https://github.com/MorganGravelat/Morgan-Gravelat-YepYup/wiki/MVP-Feature-List)
+=> [Database Schema](https://github.com/MorganGravelat/Morgan-Gravelat-YepYup/wiki/Database-Schema)
+=> [MVP Features](https://github.com/MorganGravelat/Morgan-Gravelat-YepYup/wiki/MVP-Feature-List)
 
 # Technology Used
 ![Techs](https://user-images.githubusercontent.com/32913497/158119547-0e709f92-1493-4bb8-9024-14f56d4a78da.png)
