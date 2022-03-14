@@ -1,76 +1,66 @@
+![LOGO2](https://user-images.githubusercontent.com/32913497/158123555-0e5492aa-81aa-45f8-8705-2ded54aad972.png)
 
-# Create React App Template
+YepYup is a [Yelp](https://www.yelp.com/) clone that is Yelp on one page. It is a place for all businesses to be posted and advertised based off your local area. Users may sign up and post their business, comment on said business, and give it a rating.
 
-A no-frills template from which to create React + Redux applications with
-[Create React App](https://github.com/facebook/create-react-app).
+## TABLE OF CONTENTS
+* [Database Schema](https://github.com/MorganGravelat/Morgan-Gravelat-YepYup/wiki/Database-Schema)
+* [MVP Features](https://github.com/MorganGravelat/Morgan-Gravelat-YepYup/wiki/MVP-Feature-List)
 
-```sh
-npx create-react-app my-app --template @appacademy/react-redux-v17 --use-npm
+# Technology Used
+![Techs](https://user-images.githubusercontent.com/32913497/158119547-0e709f92-1493-4bb8-9024-14f56d4a78da.png)
+
+# Install Instructions
+1. Clone the repo
+```js
+git clone https://github.com/MorganGravelat/Morgan-Gravelat-YepYup.git
 ```
+2. Install dependencies in the backend and then frontend
+```js
+//Starting from root
+cd backend
+npm install
+cd ../frontend
+npm install
+```
+3. Setup POSTGRESQL by creating a user and building the database
+```js
+//in the console in backend
+cd backend //if you are in root
+psql //to use postgresql
+CREATE USER <name> WITH CREATEDB PASSWORD <'passowrd'>
+\q
+//Create a .env file in your backend
+//.env start
+PORT=5000
+DB_USERNAME=<the user you just created's username>
+DB_PASSWORD=<your user you just created's password>
+DB_DATABASE=<your database name>
+DB_HOST=localhost
+JWT_SECRET=<generate yourself a secret>
+JWT_EXPIRES_IN=604800
+//.env end
+```
+4. Add a proxy to the frontend folders package.json file
+```js
+"proxy": "http://localhost:5000" //If you change the pre set port in the .env, make sure to change the proxy to match
+```
+5. Create your database and set it up
+```js
+npx dotenv sequelize db:create
+npx dotenv sequelize db:migrate
+npx dotenv sequelize db:seed:all
+```
+6. Start the backend and then frontend server
+```js
+//from root
+cd backend
+npm start
+cd ../frontend
+npm start
+```
+7. If the server does not open automatically, navigate to http://localhost:3000 and use the demo user or make an account if you'd like.
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Features
+### A logged in user can do the following things
+* Add/View/Edit/Delete Businesses
+* Add/View/Delete Comments
